@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="admin_web_cadastro">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/java/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="persitence_module.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/persitence_module/persitence_module">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="admin_web_cadastro"/>
+        <property name="java-output-path" value="/admin_web_cadastro/target/classes"/>
+    </wb-module>
+</project-modules>

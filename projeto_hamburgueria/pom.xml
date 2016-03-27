@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.danilo</groupId>
+  <artifactId>projeto_hamburgueria</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<version>3.5.1</version>
+  			<configuration>
+  				<source>1.7</source>
+  				<target>1.7</target>
+<!--   				<webXml>src\main\webapp\WEB-INF\web.xml</webXml>  -->
+  			</configuration>
+  		</plugin>
+  	
+  	</plugins>
+  </build>
+  <modules>
+  	<module>persitence_module</module>
+  	<module>gerenciamento_de_pedidos_service</module>
+  	<module>admin_web_cadastro</module>
+  </modules>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>joda-time</groupId>
+  		<artifactId>joda-time</artifactId>
+  		<version>2.9.1</version>
+  	</dependency>
+  </dependencies>
+</project>

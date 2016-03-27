@@ -1,0 +1,54 @@
+@CHARSET "ISO-8859-1";
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 100% !important;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.custom {
+	border: 0 none !important;
+}
+
+.ui-panelgrid td,.ui-panelgrid tr {
+	border: 0 none !important;
+}
+
+.centerMargin10 {
+	margin: 0% 10% 0% 10% !important;
+}
+
+.centerMargin40 {
+	margin: 0% 30% !important;
+}
+
+.padding10 {
+	padding-right: 3px !important;
+}
+.inputBig{
+	width: 450;
+}
+
+.ui-state-error,.ui-widget-content .ui-state-error,.ui-widget-header .ui-state-error
+	{
+	border: 1px solid #eed3d7;
+	background: #f2dede 50% 50% repeat-x;
+	color: #b94a48;
+}
+
+.ui-state-error a,.ui-widget-content .ui-state-error a,.ui-widget-header .ui-state-error a
+	{
+	color: #b94a48;
+}
+
+.ui-state-error-text,.ui-widget-content .ui-state-error-text,.ui-widget-header .ui-state-error-text
+	{
+	color: #b94a48;
+}

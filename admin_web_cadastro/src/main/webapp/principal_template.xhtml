@@ -1,0 +1,54 @@
+<!DOCTYPE XHTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<f:loadBundle basename="resources.application" var="msg"/>
+<h:head>
+    <h:title><ui:insert name="titulo">#{msg.welcomeTitle}</ui:insert></h:title>
+		<f:facet name="last">
+			<h:outputStylesheet library="css" name="default.css"  />
+			<h:outputScript library="js" name="locale-primefaces.js"  />
+		</f:facet>
+</h:head>
+
+<h:body>
+	<p:layout fullPage="true" styleClass="custom">
+		<p:layoutUnit position="north" styleClass="custom">
+		<h:form>
+			<p:menubar autoDisplay="false"  >
+					<p:menuitem ><p:spacer width="500" height="30"/></p:menuitem>
+					<p:menuitem value="Home" outcome="/restaurantes/cadastrar" icon="ui-icon-home" styleClass="padding10" />
+					<p:menuitem ><p:spacer/></p:menuitem>
+					<p:submenu label="#{msg.restaurantes}" >
+						<p:menuitem value="#{msg.cadastrar}" outcome="/restaurantes/cadastrar"></p:menuitem>
+						<p:menuitem value="#{msg.listar}" outcome="/restaurantes/cadastrar"></p:menuitem>
+					</p:submenu>
+					<p:menuitem ><p:spacer/></p:menuitem>
+					<p:submenu label="#{msg.clientes}" >
+						<p:menuitem value="#{msg.cadastrar}" outcome="/clientes/cadastrar"></p:menuitem>
+						<p:menuitem value="#{msg.listar}" outcome="/restaurantes/cadastrar"></p:menuitem>
+					</p:submenu>
+					<p:menuitem ><p:spacer/></p:menuitem>
+					<p:submenu label="#{msg.produtos}"  icon="ui-icon-gear" >
+						<p:submenu label="#{msg.cardapio}"  icon="ui-icon-gear">
+							<p:menuitem value="#{msg.bebidas}" outcome="/restaurantes/cadastrar"/>
+							<p:menuitem value="#{msg.lanches}" outcome="/restaurantes/cadastrar"/>
+						</p:submenu>
+					</p:submenu>
+			</p:menubar>
+		</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" styleClass="custom">
+			<ui:insert name="content" />
+		</p:layoutUnit>
+		<p:layoutUnit position="south" styleClass="custom">
+			<ui:insert name="footer" />
+		</p:layoutUnit>
+	</p:layout>
+	
+</h:body>
+</html>

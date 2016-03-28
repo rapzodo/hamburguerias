@@ -1,9 +1,9 @@
 @CHARSET "ISO-8859-1";
 
-.ui-widget,.ui-widget .ui-widget {
-	font-size: 100% !important;
+/*.ui-widget,.ui-widget .ui-widget {
+	font-size: 100%;
 }
-
+*/
 .ui-layout-north {
 	z-index: 20 !important;
 	overflow: visible !important;
@@ -13,7 +13,7 @@
 	overflow: visible !important;
 }
 
-.custom {
+.noBorder {
 	border: 0 none !important;
 }
 
@@ -51,4 +51,8 @@
 .ui-state-error-text,.ui-widget-content .ui-state-error-text,.ui-widget-header .ui-state-error-text
 	{
 	color: #b94a48;
+}
+
+.login{
+	font-size: 85% !important; 
 }

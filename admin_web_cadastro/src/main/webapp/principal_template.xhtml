@@ -8,6 +8,8 @@
 
 <f:loadBundle basename="resources.application" var="msg"/>
 <h:head>
+	<!-- load bootstrap and fontawesome via CDN -->
+     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <h:title><ui:insert name="titulo">#{msg.welcomeTitle}</ui:insert></h:title>
 		<f:facet name="last">
 			<h:outputStylesheet library="css" name="default.css"  />
@@ -16,36 +18,41 @@
 </h:head>
 
 <h:body>
-	<p:layout fullPage="true" styleClass="custom">
-		<p:layoutUnit position="north" styleClass="custom">
+	<p:layout fullPage="true" styleClass="noBorder">
+		<p:layoutUnit position="north" styleClass="noBorder">
 		<h:form>
-			<p:menubar autoDisplay="false"  >
-					<p:menuitem ><p:spacer width="500" height="30"/></p:menuitem>
-					<p:menuitem value="Home" outcome="/restaurantes/cadastrar" icon="ui-icon-home" styleClass="padding10" />
-					<p:menuitem ><p:spacer/></p:menuitem>
+			<p:menubar autoDisplay="false">
+					<p:menuitem value="Home " outcome="/restaurantes/cadastrar" icon="ui-icon-home" styleClass="padding10" />
 					<p:submenu label="#{msg.restaurantes}" >
 						<p:menuitem value="#{msg.cadastrar}" outcome="/restaurantes/cadastrar"></p:menuitem>
 						<p:menuitem value="#{msg.listar}" outcome="/restaurantes/cadastrar"></p:menuitem>
 					</p:submenu>
-					<p:menuitem ><p:spacer/></p:menuitem>
 					<p:submenu label="#{msg.clientes}" >
 						<p:menuitem value="#{msg.cadastrar}" outcome="/clientes/cadastrar"></p:menuitem>
 						<p:menuitem value="#{msg.listar}" outcome="/restaurantes/cadastrar"></p:menuitem>
 					</p:submenu>
-					<p:menuitem ><p:spacer/></p:menuitem>
 					<p:submenu label="#{msg.produtos}"  icon="ui-icon-gear" >
 						<p:submenu label="#{msg.cardapio}"  icon="ui-icon-gear">
 							<p:menuitem value="#{msg.bebidas}" outcome="/restaurantes/cadastrar"/>
 							<p:menuitem value="#{msg.lanches}" outcome="/restaurantes/cadastrar"/>
 						</p:submenu>
 					</p:submenu>
+					<f:facet name="options">
+						<p:outputLabel for="login" value="#{msg.email}" styleClass="login"/>
+						<p:inputText id="login" value="" placeholder="exemplo@email.com"/>
+						<p:spacer width="20"/>
+						<p:outputLabel for="senha" value="#{msg.senha}" styleClass="login"/>
+						<p:inputText id="senha" value="" placeholder="senha"/>
+						<p:commandButton value="Login"/>
+						<p:commandButton value="#{msg.cadastrar}"/>
+					</f:facet>
 			</p:menubar>
 		</h:form>
 		</p:layoutUnit>
-		<p:layoutUnit position="center" styleClass="custom">
+		<p:layoutUnit position="center" styleClass="noBorder">
 			<ui:insert name="content" />
 		</p:layoutUnit>
-		<p:layoutUnit position="south" styleClass="custom">
+		<p:layoutUnit position="south" styleClass="noBorder">
 			<ui:insert name="footer" />
 		</p:layoutUnit>
 	</p:layout>

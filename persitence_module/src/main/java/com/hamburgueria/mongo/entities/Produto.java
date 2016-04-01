@@ -7,10 +7,9 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.utils.IndexType;
 
 @Entity(noClassnameStored=true,value="produtos")
-@Indexes(@Index(fields={@Field(value="preco"),@Field(value="_id",type=IndexType.ASC)}))
+@Indexes(@Index(fields={@Field(value="preco")}))
 public class Produto extends DomainSuperClass {
 
 	/**

@@ -1,16 +1,12 @@
 package com.hamburgueria.mongo.entities;
 
-import javax.inject.Inject;
-
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.utils.IndexType;
 
 @Indexes(@Index(fields={@Field(value="location", type=IndexType.GEO2D),
-		@Field(value="_id"),
 		@Field(value="dateCadastro", type=IndexType.DESC),
 		@Field(value="emailId")}
 		))
@@ -21,6 +17,7 @@ public class UsuarioSistema extends DomainSuperClass {
 	 */
 	private static final long serialVersionUID = 7917921256091335248L;
 	private String emailId;
+	private String password;
 	private String telefone;
 	private String celular;
 	private String imagem;
@@ -63,6 +60,12 @@ public class UsuarioSistema extends DomainSuperClass {
 	}
 	public void setLocation(String[] location) {
 		this.location = location;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

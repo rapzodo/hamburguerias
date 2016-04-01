@@ -3,7 +3,7 @@
 	<name>admin_web_cadastro</name>
 	<comment></comment>
 	<projects>
-		<project>persitence_module</project>
+		<project>controle_acesso_ejb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

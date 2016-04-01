@@ -18,7 +18,7 @@ import com.hamburgueria.morphia.db.MorphiaDS;
 
 
 @SuppressWarnings("unchecked")
-public class BaseMongoDao<MODEL> {
+public class BaseMongoDao<MODEL>{
 	
 	private Class<?> classe;
 	private Datastore ds;
@@ -131,8 +131,15 @@ public class BaseMongoDao<MODEL> {
 		for(String key : fieldValuePairs.keySet()){
 			query.field(key).equal(fieldValuePairs.get(key));
 		}
-		System.out.println(query);
 		return (List<MODEL>) query.asList();
+	}
+	
+	public MODEL getModelByComplexQueryAnd(Map<String, Object> fieldValuePairs){
+		Query<?> query = ds.createQuery(classe);
+		for(String key : fieldValuePairs.keySet()){
+			query.field(key).equal(fieldValuePairs.get(key));
+		}
+		return (MODEL) query.get();
 	}
 	
 	public List<MODEL> getByDateRange(String DateFieldName, Date inDt, Date endDt){

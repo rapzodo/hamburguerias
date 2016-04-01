@@ -10,8 +10,7 @@ import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.utils.IndexType;
 
 @Entity(value="pedidos", noClassnameStored=true)
-@Indexes(@Index(fields={@Field(value="_id"),
-		@Field(value="dateCadastro", type=IndexType.DESC)}))
+@Indexes(@Index(fields={@Field(value="dateCadastro", type=IndexType.DESC)}))
 public class Pedido extends DomainSuperClass {
 
 	/**
@@ -20,8 +19,10 @@ public class Pedido extends DomainSuperClass {
 	private static final long serialVersionUID = 2419518708903171252L;
 	@Reference
 	private Cliente cliente; 
+	@Reference
 	private List<Produto> items;
 	private Double valorTotal;
+	private Double servico;
 	
 	public Cliente getCliente() {
 		return cliente;
@@ -43,5 +44,11 @@ public class Pedido extends DomainSuperClass {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Double getServico() {
+		return servico;
+	}
+	public void setServico(Double servico) {
+		this.servico = servico;
 	}
 }

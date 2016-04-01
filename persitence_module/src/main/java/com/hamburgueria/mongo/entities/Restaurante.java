@@ -21,6 +21,7 @@ public class Restaurante extends UsuarioSistema{
 	@Reference
 	private List<Cliente> clientes;
 	private String cnpj;
+	@Reference
 	private List<Produto> menu;
 	
 	public List<Cliente> getClientes() {

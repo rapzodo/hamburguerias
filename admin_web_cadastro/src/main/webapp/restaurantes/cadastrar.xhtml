@@ -1,54 +1,84 @@
 <!DOCTYPE XHTML>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
-	<ui:composition template="/principal_template.xhtml">
-		<ui:define name="content">
-			<h:form id="restauranteForm" styleClass="custom">
-				<p:messages id="msgs" showDetail="true" showSummary="true"/>
-				<p:panelGrid columns="2" header="Restaurante">
-					<p:outputLabel for="razao" value="Razao Social:" />
-					<p:inputText id="razao" value="#{restaurantesBean.restaurante.razaoSocial}" required="true" />
-					<p:outputLabel for="cpfCnpj" value="CNPJ:"/>
-					<p:inputText id="cpfCnpj" value="#{restaurantesBean.restaurante.cnpj}" required="true"/>
-					<p:outputLabel for="email" value="Email:"/>
-					<p:inputText id="email" value="#{restaurantesBean.restaurante.emailId}" required="true">
-						<f:validateRegex pattern="#{msg.email_regex}" />
-					</p:inputText>
-					<p:outputLabel for="tel" value="Telefone"/>
-					<p:inputMask mask="(99) 9999-9999" id="tel" value="#{restaurantesBean.restaurante.telefone}"/>
-					<p:outputLabel for="cep" value="CEP"/>
-					<p:inputMask mask="99999-999" id="cep" value="#{restaurantesBean.restaurante.endereco.cep}" required="true"/>
-					<p:outputLabel for="rua" value="Rua/Numero"/>
-					<p:inputText id="rua" value="#{restaurantesBean.restaurante.endereco.rua}" required="true"/>
-					<p:outputLabel for="bairro" value="Bairro"/>
-					<p:inputText id="bairro" value="#{restaurantesBean.restaurante.endereco.bairro}" required="true"/>
-					<p:outputLabel for="cidade" value="Cidade"/>
-					<p:inputText id="cidade" value="#{restaurantesBean.restaurante.endereco.cidade}" required="true"/>
-					<p:outputLabel for="uf" value="UF"/>
-					<p:inputText id="uf" value="#{restaurantesBean.restaurante.endereco.uf}" required="true"/>
-					<ui:remove>
-<!-- 					<p:outputLabel for="abre" value="Horario de Abertura"/> -->
-<!-- 					<p:calendar required="true" id="abre" timeOnly="true" -->
-<!-- 					pattern="#{msg.timeformat}" value="#{petBean.petshop.horarioAbertura}"  -->
-<!-- 					showButtonPanel="true" locale="pt" converter="timeConverter"/> -->
-<!-- 					<p:outputLabel for="fecha" value="Horario de Fechamento"/> -->
-<!-- 					<p:calendar id="fecha" required="true" timeOnly="true" locale="pt" -->
-<!-- 					pattern="#{msg.timeformat}" value="#{petBean.petshop.horarioFechamento}"  -->
-<!-- 					showButtonPanel="true" converter="timeConverter"/>  -->
-						<p:outputLabel for="abre" value="Horario de Abertura"/>
-						<p:inputMask mask="99:99" id="abre" value="#{petBean.petshop.horarioAbertura}" />
-						<p:outputLabel for="fecha" value="Horario de Fechamento"/>
-						<p:inputMask mask="99:99" id="fecha" value="#{petBean.petshop.horarioFechamento}" />
-					</ui:remove>
-					<p:commandButton value="Limpar" type="reset"/>
-					<p:commandButton value="Enviar" type="submit" update="msgs restauranteForm" 
-					action="#{restaurantesBean.cadastra()}" icon="ui-icon-check"/>
-				</p:panelGrid>
-			</h:form>
-		</ui:define>
-	</ui:composition>
-</html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+			<b:container fluid="true" style="margin-top:80">
+				<h:form id="restauranteForm" styleClass="custom">
+					<b:well>
+						<p:steps>
+							<p:menuitem value="Pessoais"></p:menuitem>
+							<p:menuitem value="Endereco"></p:menuitem>
+						</p:steps>
+					</b:well>
+					<b:jumbotron>
+						<b:panel style="width:50%; margin:0% auto">
+							<p:messages id="msgs" showDetail="true" showSummary="true" />
+							<p:outputLabel for="razao" value="Razao Social:" />
+							<b:inputText id="razao"
+								value="#{restaurantesBean.restaurante.razaoSocial}"
+								required="true">
+								<f:facet name="prepend">
+									<b:icon name="user"></b:icon>
+								</f:facet>
+							</b:inputText>
+							<p:outputLabel for="cpfCnpj" value="CNPJ:" />
+
+							<b:inputText id="cpfCnpj"
+								value="#{restaurantesBean.restaurante.razaoSocial}"
+								required="true">
+								<f:facet name="prepend">
+									<b:icon name="user"></b:icon>
+								</f:facet>
+							</b:inputText>
+							<p:outputLabel for="email" value="Email:" />
+							<b:inputText id="email"
+								value="#{restaurantesBean.restaurante.razaoSocial}"
+								required="true">
+								<f:facet name="prepend">
+									<b:icon name="user"></b:icon>
+								</f:facet>
+							</b:inputText>
+							<p:panelGrid columns="2">
+								<b:commandButton value="Limpar" type="reset" look="warning"
+									size="lg" />
+								<b:commandButton value="Enviar" type="submit"
+									update="msgs restauranteForm"
+									action="#{restaurantesBean.cadastra()}" icon="ui-icon-check"
+									size="lg" />
+							</p:panelGrid>
+						</b:panel>
+					</b:jumbotron>
+				</h:form>
+			</b:container>
+			<style type="text/css">
+.ui-steps .ui-steps-item {
+	width: 24%;
+}
+
+.ui-state-highlight {
+	text-shadow: none !important;
+}
+
+.ui-steps.custom {
+	margin-bottom: 30px;
+}
+
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+	height: 10px;
+	padding: 0 1em;
+}
+
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+	background-color: #0081c2;
+	color: #FFFFFF;
+	display: inline-block;
+	width: 30px;
+	border-radius: 10px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+</style>
+</ui:fragment>

@@ -1,61 +1,65 @@
 <!DOCTYPE XHTML>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-<f:loadBundle basename="resources.application" var="msg"/>
 <h:head>
-	<!-- load bootstrap and fontawesome via CDN -->
-     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <h:title><ui:insert name="titulo">#{msg.welcomeTitle}</ui:insert></h:title>
-		<f:facet name="last">
-			<h:outputStylesheet library="css" name="default.css"  />
-			<h:outputScript library="js" name="locale-primefaces.js"  />
-		</f:facet>
+	<f:loadBundle basename="resources.application" var="msg" />
+	<f:facet name="last">
+		<h:outputStylesheet library="css" name="default.css" />
+		<h:outputScript library="js" name="locale-primefaces.js" />
+	</f:facet>
+	<style type="text/css">
+.transparent {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bg {
+	background-image:
+		url(http://parkresto.com/wp-content/themes/parkrestaurant/images/11onlinereservationpark.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: 100% 100%;
+	background-color: transparent;
+}
+</style>
 </h:head>
 
-<h:body>
-	<p:layout fullPage="true" styleClass="noBorder">
-		<p:layoutUnit position="north" styleClass="noBorder">
-		<h:form>
-			<p:menubar autoDisplay="false">
-					<p:menuitem value="Home " outcome="/restaurantes/cadastrar" icon="ui-icon-home" styleClass="padding10" />
-					<p:submenu label="#{msg.restaurantes}" >
-						<p:menuitem value="#{msg.cadastrar}" outcome="/restaurantes/cadastrar"></p:menuitem>
-						<p:menuitem value="#{msg.listar}" outcome="/restaurantes/cadastrar"></p:menuitem>
-					</p:submenu>
-					<p:submenu label="#{msg.clientes}" >
-						<p:menuitem value="#{msg.cadastrar}" outcome="/clientes/cadastrar"></p:menuitem>
-						<p:menuitem value="#{msg.listar}" outcome="/restaurantes/cadastrar"></p:menuitem>
-					</p:submenu>
-					<p:submenu label="#{msg.produtos}"  icon="ui-icon-gear" >
-						<p:submenu label="#{msg.cardapio}"  icon="ui-icon-gear">
-							<p:menuitem value="#{msg.bebidas}" outcome="/restaurantes/cadastrar"/>
-							<p:menuitem value="#{msg.lanches}" outcome="/restaurantes/cadastrar"/>
-						</p:submenu>
-					</p:submenu>
-					<f:facet name="options">
-						<p:outputLabel for="login" value="#{msg.email}" styleClass="login"/>
-						<p:inputText id="login" value="" placeholder="exemplo@email.com"/>
-						<p:spacer width="20"/>
-						<p:outputLabel for="senha" value="#{msg.senha}" styleClass="login"/>
-						<p:inputText id="senha" value="" placeholder="senha"/>
-						<p:commandButton value="Login"/>
-						<p:commandButton value="#{msg.cadastrar}"/>
-					</f:facet>
-			</p:menubar>
+<h:body styleClass="bg">
+	<b:panel rendered="false">
+		<b:navBar />
+		<b:navbarLinks />
+		<b:navLink />
+		<b:row />
+	</b:panel>
+	<b:navBar brand="EMPRESA" brandHref="admin_web_cadastro/app/home"
+		fixed="top">
+		<b:navbarLinks>
+			<b:navCommandLink value="#{msg.clientes}"
+				outcome="/clientes/cadastrar" iconAwesome="user" iconAlign="right" />
+		</b:navbarLinks>
+		<h:form styleClass="navbar-form navbar-right">
+			<div class="form-group">
+				<b:inputText value="#{signInSignUpBBean.email}"
+					placeholder="#{msg.email}" />
+			</div>
+			<div class="form-group">
+				<b:inputText value="#{signInSignUpBBean.senha}"
+					placeholder="#{msg.senha}" />
+			</div>
+			<div class="form-group">
+				<b:commandButton value="Logar" look="success"
+					action="#{signInSignUpBBean.logar()}" />
+			</div>
 		</h:form>
-		</p:layoutUnit>
-		<p:layoutUnit position="center" styleClass="noBorder">
-			<ui:insert name="content" />
-		</p:layoutUnit>
-		<p:layoutUnit position="south" styleClass="noBorder">
-			<ui:insert name="footer" />
-		</p:layoutUnit>
-	</p:layout>
-	
+	</b:navBar>
+	<ui:insert name="content" />
+	<b:navBar fixed="bottom">
+		<p>© Company 2014</p>
+	</b:navBar>
 </h:body>
 </html>

@@ -29,18 +29,27 @@
 </style>
 </h:head>
 
-<h:body styleClass="bg">
+<h:body >
 	<b:panel rendered="false">
 		<b:navBar />
 		<b:navbarLinks />
 		<b:navLink />
 		<b:row />
 	</b:panel>
-	<b:navBar brand="EMPRESA" brandHref="admin_web_cadastro/app/home"
-		fixed="top">
+	<b:navBar brand="EMPRESA" fixed="top" inverse="true">
 		<b:navbarLinks>
+			<b:navCommandLink value="Home"
+				outcome="/app/home" iconAwesome="home" iconAlign="left" />
 			<b:navCommandLink value="#{msg.clientes}"
 				outcome="/clientes/cadastrar" iconAwesome="user" iconAlign="right" />
+			<b:dropMenu value="#{msg.cardapio}">
+				<b:dropMenu value="#{msg.cadastrar}">
+					<b:navCommandLink value="#{msg.lanches}"
+						outcome="/produtos/cadastrar" iconAwesome="user" iconAlign="right" />
+					<b:navCommandLink value="#{msg.bebidas}"
+						outcome="/clientes/cadastrar" iconAwesome="user" iconAlign="right" />
+				</b:dropMenu>
+			</b:dropMenu>
 		</b:navbarLinks>
 		<h:form styleClass="navbar-form navbar-right">
 			<div class="form-group">

@@ -6,6 +6,8 @@ import java.util.List;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Indexes;
 
 @Entity(noClassnameStored=true,value="produtos")
@@ -19,6 +21,7 @@ public class Produto extends DomainSuperClass {
 	/**
 	 * 
 	 */
+	@Indexed(options=@IndexOptions(unique=true, name="nome"))
 	private String nome;
 	private Double preco;
 	private List<String> imagens;

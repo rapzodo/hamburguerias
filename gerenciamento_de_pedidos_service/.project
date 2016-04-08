@@ -3,6 +3,8 @@
 	<name>gerenciamento_de_pedidos_service</name>
 	<comment></comment>
 	<projects>
+		<project>gerencia_pedidos_ejb</project>
+		<project>messages-service</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

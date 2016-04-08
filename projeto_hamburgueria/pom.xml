@@ -57,20 +57,21 @@
 		<module>admin_web_cadastro</module>
 		<module>signin_service</module>
 		<module>controle_acesso_ejb</module>
+		<module>gerencia_pedidos_ejb</module>
 	</modules>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.9.1</version>
 		</dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-		
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 </project>

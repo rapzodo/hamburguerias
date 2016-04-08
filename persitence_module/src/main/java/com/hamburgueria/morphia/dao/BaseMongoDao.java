@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 
@@ -54,15 +55,14 @@ public class BaseMongoDao<MODEL>{
 		if(counter == null){
 			Sequence seq = new Sequence();
 			seq.set_id(sequenceName);
-			seq.setCounter(1);
+			seq.setCounter(0);
 			ds.save(seq);
 			return getCounterSeq();
 		}
 		return counter.getCounter();
 	}
 	
-	public MODEL getById(String id){
-		long _id = Long.valueOf(id);
+	public MODEL getById(Long _id){
 		return (MODEL) ds.createQuery(classe).field("_id").equal(_id).get();
 	}
 	
@@ -107,7 +107,7 @@ public class BaseMongoDao<MODEL>{
 		return (List<MODEL>) ds.createQuery(classe).filter(filter, value).asList();
 	}
 	
-	public int delete(String id){
+	public int delete(Long id){
 		MODEL model = getById(id);
 		return ds.delete(model).getN();
 	}
@@ -116,8 +116,7 @@ public class BaseMongoDao<MODEL>{
 		if(model instanceof DomainSuperClass){
 			
 			DomainSuperClass domain = (DomainSuperClass) model;
-			String id = String.valueOf(domain.get_id());
-			if(getById(id) == null ){
+			if(getById(domain.get_id()) == null ){
 				domain.set_id(getCounterSeq());
 				domain.setDateCadastro(new Date());
 			}
@@ -158,5 +157,11 @@ public class BaseMongoDao<MODEL>{
 		return (List<MODEL>) query.asList();
 	}
 	
+	public MODEL updateFieldById(String fieldName, Object fieldValue, Long id){
+		UpdateOperations<MODEL> updateOp = (UpdateOperations<MODEL>) ds.createUpdateOperations(classe);
+		updateOp.set(fieldName, fieldValue).enableValidation();
+		Query<MODEL> query = (Query<MODEL>) ds.createQuery(classe).field(Mapper.ID_KEY).equal(id);
+		return (MODEL) ds.update(query, updateOp);
+	}
 	
 }

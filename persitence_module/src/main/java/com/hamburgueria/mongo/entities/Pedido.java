@@ -2,6 +2,8 @@ package com.hamburgueria.mongo.entities;
 
 import java.util.List;
 
+import javax.ejb.DependsOn;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
@@ -11,18 +13,21 @@ import org.mongodb.morphia.utils.IndexType;
 
 @Entity(value="pedidos", noClassnameStored=true)
 @Indexes(@Index(fields={@Field(value="dateCadastro", type=IndexType.DESC)}))
+@DependsOn(value="GerenciadorDePedidos")
 public class Pedido extends DomainSuperClass {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2419518708903171252L;
+	private Integer numMesa;
 	@Reference
 	private Cliente cliente; 
 	@Reference
 	private List<Produto> items;
 	private Double valorTotal;
 	private Double servico;
+	private Boolean fechado;
 	
 	public Cliente getCliente() {
 		return cliente;
@@ -50,5 +55,17 @@ public class Pedido extends DomainSuperClass {
 	}
 	public void setServico(Double servico) {
 		this.servico = servico;
+	}
+	public Boolean getFechado() {
+		return fechado;
+	}
+	public void setFechado(Boolean fechado) {
+		this.fechado = fechado;
+	}
+	public Integer getNumMesa() {
+		return numMesa;
+	}
+	public void setNumMesa(Integer numMesa) {
+		this.numMesa = numMesa;
 	}
 }

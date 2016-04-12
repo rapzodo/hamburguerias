@@ -23,7 +23,7 @@
   </context-param>
   <context-param>
   	<param-name>bootsfaces.THEME</param-name>
-  	<param-value>paper</param-value>
+  	<param-value>default</param-value>
   </context-param>
 
 </web-app>

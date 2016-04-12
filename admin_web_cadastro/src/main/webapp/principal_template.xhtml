@@ -26,47 +26,75 @@
 	background-size: 100% 100%;
 	background-color: transparent;
 }
+.ui-growl {
+	top: 80px;
+	right:20px;
+}
 </style>
 </h:head>
 
-<h:body >
+<h:body>
 	<b:panel rendered="false">
 		<b:navBar />
 		<b:navbarLinks />
 		<b:navLink />
 		<b:row />
 	</b:panel>
-	<b:navBar brand="EMPRESA" fixed="top" inverse="true">
+	<b:navBar brand="EMPRESA" fixed="top" inverse="true" style="height:80px; padding-top:15px" rendered="#{appMBean.admin}">
 		<b:navbarLinks>
 			<b:navCommandLink value="Home"
 				outcome="/app/home" iconAwesome="home" iconAlign="left" />
 			<b:navCommandLink value="#{msg.clientes}"
 				outcome="/clientes/cadastrar" iconAwesome="user" iconAlign="right" />
-			<b:dropMenu value="#{msg.cardapio}">
+			<b:dropMenu value="#{msg.cardapio}" iconAwesome="cutlery">
 				<b:dropMenu value="#{msg.cadastrar}">
 					<b:navCommandLink value="#{msg.lanches}"
-						outcome="/produtos/cadastrar" iconAwesome="user" iconAlign="right" />
+						outcome="/produtos/cadastrar" iconAwesome="spoon" />
 					<b:navCommandLink value="#{msg.bebidas}"
-						outcome="/clientes/cadastrar" iconAwesome="user" iconAlign="right" />
+						outcome="/clientes/cadastrar" iconAwesome="glass" />
 				</b:dropMenu>
+				<b:navLink value="#{msg.listar}" outcome="/produtos/listar"/>
 			</b:dropMenu>
 		</b:navbarLinks>
 		<h:form styleClass="navbar-form navbar-right">
 			<div class="form-group">
-				<b:inputText value="#{signInSignUpBBean.email}"
-					placeholder="#{msg.email}" />
+				<b:inputText value="#{signInSignUpBBean.email}" fieldSize="sm" placeholder="#{msg.email}" />
 			</div>
 			<div class="form-group">
-				<b:inputText value="#{signInSignUpBBean.senha}"
-					placeholder="#{msg.senha}" />
+				<b:inputText value="#{signInSignUpBBean.senha}" fieldSize="sm" placeholder="#{msg.senha}" />
 			</div>
 			<div class="form-group">
-				<b:commandButton value="Logar" look="success"
+				<b:commandButton value="#{msg.login}" look="success"
 					action="#{signInSignUpBBean.logar()}" />
 			</div>
 		</h:form>
 	</b:navBar>
-	<ui:insert name="content" />
+	<b:navBar brand="EMPRESA" fixed="top" inverse="true" style="height:80px; padding-top:15px" rendered="#{!appMBean.admin}">
+		<h:form id="f1">
+			<h:outputText value="#{menuMBean.tipo}" rendered="false" />
+			<b:navbarLinks>
+				<b:navCommandLink value="Home" outcome="/app/home"
+					iconAwesome="home" iconAlign="left" />
+				<b:navCommandLink value="#{msg.lanches}" outcome="/produtos/listar">
+					<f:setPropertyActionListener value="L" target="#{menuMBean.tipo}" />
+				</b:navCommandLink>
+				<b:navCommandLink value="#{msg.bebidas}" outcome="/produtos/listar">
+					<f:setPropertyActionListener value="B" target="#{menuMBean.tipo}" />
+				</b:navCommandLink>
+			</b:navbarLinks>
+		</h:form>
+	</b:navBar>
+	<b:container>
+		<b:row>
+			<b:column span="1">
+			</b:column>
+			<b:column span="10">
+				<ui:insert name="content" />
+			</b:column>
+			<b:column span="1">
+			</b:column>
+		</b:row>
+	</b:container>
 	<b:navBar fixed="bottom">
 		<p>© Company 2014</p>
 	</b:navBar>

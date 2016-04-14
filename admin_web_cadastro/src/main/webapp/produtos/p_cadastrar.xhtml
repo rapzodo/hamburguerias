@@ -1,0 +1,51 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<h:form enctype="multipart/form-data">
+				<b:container fluid="true" style="margin-top:80">
+					<b:jumbotron>
+						<b:panelGrid id="inputGrid" style="width:50%; margin: 0 auto" colSpans="12">
+							<b:inputText label="Nome" renderLabel="true" id="nome" value="#{menuMBean.produto.nome}"
+								placeholder="ex.: Da Casa" required="true" span="12" />
+							<b:inputText label="Descrição" renderLabel="true" id="desc" value="#{menuMBean.produto.descricao}"
+								tooltip="Descrição" tooltip-position="bottom"
+								placeholder="ex: Feito com carne de Angus..." span="12"/>
+							<b:inputText label="Preço" renderLabel="true" id="preco" value="#{menuMBean.produto.preco}"
+								tooltip-position="bottom" span="12" required="true"> 
+									<f:facet name="prepend"><h:outputText value="R$"/> </f:facet>
+								</b:inputText>
+								<p:separator />
+									<p:fileUpload sizeLimit="#{msg.file_size_limit}" value="#{menuMBean.foto}" auto="true"
+									label="Foto" update="msgs" mode="simple" fileUploadListener="#{menuMBean.enviaFoto}"
+									skinSimple="true" />
+								<p:growl showDetail="true" showSummary="true" autoUpdate="true" severity="info" />
+								<b:messages id="msgs"></b:messages>
+								<p:separator />
+								<b:row>
+									<b:column span="3">
+									</b:column>
+									<b:column span="3">
+										<b:commandButton value="#{msg.enviar}" look="success" type="submit"
+											action="#{menuMBean.cadastraProduto()}" iconAwesome="save"
+											size="lg" update="@form" />
+									</b:column>
+									<b:column span="3">
+										<b:button type="reset" value="Limpar" look="danger"
+											size="lg" iconAwesome="eraser" />
+									</b:column>
+									<b:column span="3">
+									</b:column>
+								</b:row>
+						</b:panelGrid>
+					</b:jumbotron>
+				</b:container>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

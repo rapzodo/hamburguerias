@@ -23,7 +23,7 @@ public class Pedido extends DomainSuperClass {
 	private Integer numMesa;
 	@Reference
 	private Cliente cliente; 
-	@Reference
+	@Reference(idOnly=true)
 	private List<Produto> items;
 	private Double valorTotal;
 	private Double servico;

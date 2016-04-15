@@ -1,8 +1,6 @@
 package com.hamburgueria.mongo.entities;
 
 
-import java.util.List;
-
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;

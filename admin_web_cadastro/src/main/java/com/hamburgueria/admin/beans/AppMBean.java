@@ -12,6 +12,7 @@ public class AppMBean {
 
 	private Boolean admin = false;
 	private List<String> ufList = Arrays.asList("SP","AM","PR","SC","RS","RJ");
+	private List<String> categoria = Arrays.asList("Bebidas","Lanches","Entradas","Aperitivos");
 
 	public Boolean getAdmin() {
 		return admin;
@@ -27,6 +28,14 @@ public class AppMBean {
 
 	public void setUfList(List<String> ufList) {
 		this.ufList = ufList;
+	}
+
+	public List<String> getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(List<String> categoria) {
+		this.categoria = categoria;
 	}
 	
 	

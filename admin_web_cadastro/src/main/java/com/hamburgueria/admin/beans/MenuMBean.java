@@ -1,6 +1,5 @@
 package com.hamburgueria.admin.beans;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.primefaces.model.UploadedFile;
 
 import com.hamburgueria.admin.common.FileUtils;
 import com.hamburgueria.admin.common.MessagesUtil;
-import com.hamburgueria.constants.CommonConstants;
 import com.hamburgueria.constants.ServiceConstants;
 import com.hamburgueria.mongo.entities.Categoria;
 import com.hamburgueria.mongo.entities.Produto;
@@ -26,8 +24,6 @@ import com.hamburgueria.morphia.dao.ProdutoDao;
 public class MenuMBean extends BaseMBean<Produto>{
 
 	private List<Produto> menu;
-	private ProdutoDao prodDao = new ProdutoDao();
-	private Produto produto = new Produto();
 	private Categoria categoria ;
 	private UploadedFile foto;
 	private String tipo;
@@ -36,16 +32,14 @@ public class MenuMBean extends BaseMBean<Produto>{
 	int counter=0;
 	
 	public MenuMBean(){
-		super(new ProdutoDao());
+		super(new ProdutoDao(), new Produto());
 		menu = new ArrayList<Produto>();
+		categoria = new Categoria();
 	}
 	
 	public void cadastra(){
-	}
-	
-	public void cadastraProduto(){
 		enviaFoto();
-		setProduto(inserir(produto));
+		inserir();
 	}
 	
 	public void enviaFoto(){
@@ -54,7 +48,7 @@ public class MenuMBean extends BaseMBean<Produto>{
 			defaultImg = fileName;
 			try {
 				FileUtils.createFile(fileName, foto.getContents());
-				produto.setImagem(fileName);
+				getModel().setImagem(fileName);
 				MessagesUtil.createMsg(FacesMessage.SEVERITY_INFO, null, ServiceConstants.SUCCESS,"Fotos enviadas com sucesso");
 			} catch (IOException e) {
 				MessagesUtil.createMsg(FacesMessage.SEVERITY_ERROR, null, "IO Error", e.getMessage());
@@ -64,18 +58,10 @@ public class MenuMBean extends BaseMBean<Produto>{
 	}
 	
 	public List<Produto> getMenu() {
-		menu = prodDao.getModelByfield("categoria", categoria);
+		menu = getDao().getModelByfield("categoria", categoria);
 	return menu;
 	}
 
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
 
 	public Categoria getCategoria() {
 		return categoria;

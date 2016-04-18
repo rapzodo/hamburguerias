@@ -12,7 +12,7 @@
 					style="width:auto; margin: 0 auto">
 					<b:panelGrid id="inputGrid" colSpans="12">
 						<b:selectOneMenu label="#{msg.categoria}"
-							value="#{menuMBean.categoria.descricao}" span="12"
+							value="#{menuMBean.categoria.descricao}" span="4"
 							required="true">
 							<f:facet name="prepend">
 								<b:iconAwesome name="reorder" addon="true" />
@@ -22,18 +22,17 @@
 						</b:selectOneMenu>
 						<b:inputText label="Nome" renderLabel="true" id="nome"
 							value="#{menuMBean.model.nome}" placeholder="ex.: Da Casa"
-							required="true" span="12" />
-						<b:inputText label="Descrição" renderLabel="true" id="desc"
-							required="@previous != null" value="#{menuMBean.model.descricao}"
-							tooltip="Descrição" tooltip-position="bottom"
-							placeholder="ex: Feito com carne de Angus..." span="12" />
+							required="true" span="4" />
 						<b:inputText label="Preço" renderLabel="true" id="preco"
 							value="#{menuMBean.model.preco}" tooltip-position="bottom"
-							span="12" required="true">
+							span="2" required="true">
 							<f:facet name="prepend">
 								<h:outputText value="R$" />
 							</f:facet>
 						</b:inputText>
+						<b:inputTextarea label="Descrição" renderLabel="true" id="desc"
+							required="@previous != null" value="#{menuMBean.model.descricao}"
+							placeholder="ex: Feito com carne de Angus..." span="12" />
 						<b:well>
 							<p:fileUpload sizeLimit="#{msg.file_size_limit}"
 								value="#{menuMBean.foto}" label="Foto" update="msgs"

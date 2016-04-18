@@ -18,10 +18,10 @@ public class Restaurante extends UsuarioSistema{
 	 */
 	private static final long serialVersionUID = 7676572388295967653L;
 	private String razaoSocial;
-	@Reference
+	@Reference(idOnly=true)
 	private List<Cliente> clientes;
 	private String cnpj;
-	@Reference
+	@Reference(idOnly=true)
 	private List<Produto> menu;
 	
 	public List<Cliente> getClientes() {

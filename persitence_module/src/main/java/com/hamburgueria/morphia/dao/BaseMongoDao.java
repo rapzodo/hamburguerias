@@ -16,6 +16,7 @@ import com.hamburgueria.constants.ServiceConstants;
 import com.hamburgueria.mongo.entities.DomainSuperClass;
 import com.hamburgueria.mongo.entities.Sequence;
 import com.hamburgueria.morphia.db.MorphiaDS;
+import com.mongodb.MongoException;
 
 
 @SuppressWarnings("unchecked")
@@ -55,7 +56,7 @@ public class BaseMongoDao<MODEL>{
 		if(counter == null){
 			Sequence seq = new Sequence();
 			seq.set_id(sequenceName);
-			seq.setCounter(0);
+			seq.setCounter(1);
 			ds.save(seq);
 			return getCounterSeq();
 		}
@@ -112,7 +113,7 @@ public class BaseMongoDao<MODEL>{
 		return ds.delete(model).getN();
 	}
 
-	public long saveOrUpdate(MODEL model) {
+	public long saveOrUpdate(MODEL model) throws MongoException{
 		if(model instanceof DomainSuperClass){
 			
 			DomainSuperClass domain = (DomainSuperClass) model;

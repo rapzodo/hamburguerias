@@ -6,123 +6,30 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
-			<b:container fluid="true" style="margin-top:4%">
-				<b:row>
-					<b:column col-md="4">
-						<b:well styleClass="transparent">
-							<h1>#{msg.welcomeTitle}</h1>
-							<p>This is a template for a simple marketing or informational
-								website. It includes a large callout called a jumbotron and
-								three supporting pieces of content. Use it as a starting point
-								to create something more unique.</p>
-						</b:well>
-					</b:column>
-					<b:column col-md="4">
-						<b:well styleClass="transparent">
-							<b:thumbnail>
-								<p:graphicImage value="/img/auto_retrato.jpg" />
-								<ui:remove>
-<!-- 								<p:graphicImage value="#{menuMBean.file}" /> -->
-								</ui:remove>
-							</b:thumbnail>
-						</b:well>
-					</b:column>
-					<b:column col-md="4">
-						<b:well styleClass="transparent">
-							<h1>TERCEIRO</h1>
-							<p>This is a template for a simple marketing or informational
-								website. It includes a large callout called a jumbotron and
-								three supporting pieces of content. Use it as a starting point
-								to create something more unique.</p>
-						</b:well>
-					</b:column>
-				</b:row>
-				<b:row>
-					<b:column col-md="4">
-						<b:well styleClass="transparent">
-							<h2>Ola</h2>
-							<h:outputText value="#{signInSignUpBBean.cliente.emailId}" />
-						</b:well>
-					</b:column>
-					<b:column col-md="4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<b:button outcome="" value="View details »" />
-						</p>
-					</b:column>
-					<b:column col-md="4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<b:button outcome="" value="View details »" />
-						</p>
-					</b:column>
-				</b:row>
-				<b:row>
-					<b:column col-md="4">
-						<b:well styleClass="transparent">
-							<h2>Ola</h2>
-							<h:outputText value="#{signInSignUpBBean.cliente.emailId}" />
-						</b:well>
-					</b:column>
-					<b:column col-md="4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<b:button outcome="" value="View details »" />
-						</p>
-					</b:column>
-					<b:column col-md="4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<b:button outcome="" value="View details »" />
-						</p>
-					</b:column>
-				</b:row>
-				<b:row>
-					<b:column col-md="4">
-						<b:well styleClass="transparent">
-							<h2>Ola</h2>
-							<h:outputText value="#{signInSignUpBBean.cliente.emailId}" />
-						</b:well>
-					</b:column>
-					<b:column col-md="4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<b:button outcome="" value="View details »" />
-						</p>
-					</b:column>
-					<b:column col-md="4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<b:button outcome="" value="View details »" />
-						</p>
-					</b:column>
-				</b:row>
-				<hr />
-			</b:container>
+		<b:jumbotron>
+			<hr />
+			<b:row>
+				<b:column col-md="12">
+						<h1>#{msg.welcomeTitle}</h1>
+						<p>This is a template for a simple marketing or informational
+							website. It includes a large callout called a jumbotron and three
+							supporting pieces of content. Use it as a starting point to
+							create something more unique.</p>
+				</b:column>
+			</b:row>
+		</b:jumbotron>
+			<b:row>
+				<b:column col-md="12">
+					<b:well styleClass="transparent">
+						<h1>#{msg.welcomeTitle}</h1>
+						<p>This is a template for a simple marketing or informational
+							website. It includes a large callout called a jumbotron and three
+							supporting pieces of content. Use it as a starting point to
+							create something more unique.</p>
+					</b:well>
+				</b:column>
+			</b:row>
+			<hr />
 		</ui:define>
 	</ui:composition>
 </ui:fragment>

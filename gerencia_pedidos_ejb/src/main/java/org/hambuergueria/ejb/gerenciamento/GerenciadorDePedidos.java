@@ -16,8 +16,6 @@ import javax.ejb.TimerService;
 import javax.jms.JMSException;
 import javax.jms.Session;
 
-import sun.misc.Queue;
-
 import com.hamburgueria.mongo.entities.Pedido;
 import com.services.messages.jms.MessageServices;
 import com.services.messages.jms.QueueMessageType;

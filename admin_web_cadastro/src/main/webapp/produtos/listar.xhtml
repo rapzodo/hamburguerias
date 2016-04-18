@@ -7,15 +7,14 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
-			<h:form styleClass="custom" >
-				<b:container fluid="true" style="margin-top:80">
+
+				<b:container fluid="true" style="margin-top:100">
 					<h:outputText value="#{menuMBean.tipo}" rendered="false"/>
 					<b:row>
 						<b:column span="12">
 						<p:dataScroller value="#{menuMBean.menu}" var="item"
 							chunkSize="10">
-							<f:facet name="header"><h:outputText value="#{menuMBean.tipo}" /> </f:facet>
-							<f:facet name="header"> <p:commandButton value="Mais" action="#{menuMBean.listarLanches()}" update="@form"/> </f:facet>
+							<f:facet name="header">HEADER<h:outputText value="#{menuMBean.tipo}" /> </f:facet>
 								<p:panelGrid columns="2" columnClasses="logo,detail">
 									<p:graphicImage value="/img/auto_retrato.jpg" height="200"
 										width="200" />
@@ -28,7 +27,7 @@
 											<h:outputText value="Preco" />
 											<h:outputText value="#{item.preco}">
 												<f:convertNumber currencySymbol="R$" type="currency" />/>
-									</h:outputText>
+											</h:outputText>
 										</p:panelGrid>
 									</p:outputPanel>
 								</p:panelGrid>
@@ -37,7 +36,6 @@
 						</b:column>
 					</b:row>
 				</b:container>
-			</h:form>
 		</ui:define>
 	</ui:composition>
 </ui:fragment>

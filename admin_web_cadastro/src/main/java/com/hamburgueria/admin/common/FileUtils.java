@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.ws.rs.core.MediaType;
-
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -20,9 +18,10 @@ public class FileUtils {
 	public static void createFile(String fileName, byte[] content) throws IOException{
 		OutputStream os = null;
 		try{
-			File dir = new File(CommonConstants.IMG_FILES_PATH, fileName);
-			dir.mkdirs();
-			os = new FileOutputStream(fileName);
+			File dir = new File(CommonConstants.IMG_FILES_PATH);
+			dir.mkdir();
+			File fotoFile = new File(dir, fileName);
+			os = new FileOutputStream(fotoFile);
 			os.write(content);
 		}
 		finally{

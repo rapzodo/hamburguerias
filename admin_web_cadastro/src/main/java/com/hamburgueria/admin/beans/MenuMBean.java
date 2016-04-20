@@ -1,21 +1,22 @@
 package com.hamburgueria.admin.beans;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.hamburgueria.admin.common.FileUtils;
 import com.hamburgueria.admin.common.MessagesUtil;
 import com.hamburgueria.constants.ServiceConstants;
-import com.hamburgueria.mongo.entities.Categoria;
 import com.hamburgueria.mongo.entities.Produto;
 import com.hamburgueria.morphia.dao.ProdutoDao;
 
@@ -24,17 +25,18 @@ import com.hamburgueria.morphia.dao.ProdutoDao;
 public class MenuMBean extends BaseMBean<Produto>{
 
 	private List<Produto> menu;
-	private Categoria categoria ;
 	private UploadedFile foto;
-	private String tipo;
-	
-	private String defaultImg="http://parkresto.com/wp-content/themes/parkrestaurant/images/11onlinereservationpark.jpg";
-	int counter=0;
+	private Map<String, Object> parametros;
 	
 	public MenuMBean(){
 		super(new ProdutoDao(), new Produto());
-		menu = new ArrayList<Produto>();
-		categoria = new Categoria();
+		parametros = new HashMap<String, Object>();
+	}
+	
+	@PostConstruct
+	public void inicializar(){
+		getModel().setCategoria("Bebidas");
+		listarProdutoPorCategoria();
 	}
 	
 	public void cadastra(){
@@ -42,10 +44,13 @@ public class MenuMBean extends BaseMBean<Produto>{
 		inserir();
 	}
 	
+	public String editar(){
+		return "/produtos/p_cadastrar";
+	}
+	
 	public void enviaFoto(){
 		if(foto != null && !foto.getFileName().isEmpty()){
 			String fileName = foto.getFileName();
-			defaultImg = fileName;
 			try {
 				FileUtils.createFile(fileName, foto.getContents());
 				getModel().setImagem(fileName);
@@ -57,18 +62,23 @@ public class MenuMBean extends BaseMBean<Produto>{
 		}
 	}
 	
+	public void listarProdutoPorCategoria(){
+		menu = getDao().getModelByfield("categoria", getModel().getCategoria());
+	}
+	
+	public void listarProdutosPorFiltro(){
+		menu = getDao().getByComplexQueryAnd(parametros);
+	}
+	
+	public void mudaTab(TabChangeEvent event){
+		Tab tab = event.getTab();
+		getModel().setCategoria(tab.getTitle());
+		listarProdutoPorCategoria();
+	}
+	
 	public List<Produto> getMenu() {
-		menu = getDao().getModelByfield("categoria", categoria);
-	return menu;
-	}
-
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+		listarProdutoPorCategoria();
+		return menu;
 	}
 
 	public UploadedFile getFoto() {
@@ -79,21 +89,15 @@ public class MenuMBean extends BaseMBean<Produto>{
 		this.foto = foto;
 	}
 
-	public String getDefaultImg() {
-		return defaultImg;
+	public Map<String, Object> getParametros() {
+		return parametros;
 	}
 
-	public void setDefaultImg(String defaultImg) {
-		this.defaultImg = defaultImg;
+	public void setParametros(Map<String, Object> parametros) {
+		this.parametros = parametros;
 	}
 
-	public String getTipo() {
-		HttpServletRequest request =  (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		setTipo(request.getParameter("tipo"));
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setMenu(List<Produto> menu) {
+		this.menu = menu;
 	}
 }

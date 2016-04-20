@@ -30,7 +30,6 @@
 .ui-growl {
 	top: 80px;
 	right: 20px;
-}
 </style>
 </h:head>
 
@@ -40,53 +39,51 @@
 		<b:navbarLinks />
 		<b:navLink />
 		<b:navCommandLink />
+		<p:commandButton/>
 		<b:row />
 	</b:panel>
+
 	<b:navBar brand="EMPRESA" fixed="top" inverse="true"
 		style="height:80px; padding-top:15px" rendered="#{!appMBean.admin}">
 		<h:form>
 			<b:navbarLinks>
 				<b:navCommandLink value="Home" outcome="/app/home"
 					iconAwesome="home" iconAlign="left" />
-				<b:dropMenu value="#{msg.cadastrar}" iconAwesome ="reorder">
-					<b:navCommandLink value="#{msg.clientes}"
-						outcome="/clientes/c_cadastrar">
-							#{' '}<b:iconAwesome name="user-plus" />
-					</b:navCommandLink>
-					<b:navCommandLink value="#{msg.produtos}"
-						outcome="/produtos/p_cadastrar">
-							#{' '}<b:iconAwesome name="spoon" />
-							#{' '}<b:iconAwesome name="glass" />
-					</b:navCommandLink>
-					<b:dropMenu value="#{msg.listar}">
-						<b:navCommandLink value="#{msg.bebidas}"
-							outcome="/produtos/listar">
-							<f:param value="#{msg.bebida_param}" name="tipo" />
-						</b:navCommandLink>
-						<b:navCommandLink value="#{msg.lanches}"
-							outcome="/produtos/listar">
-							<f:param value="#{msg.lanches_param}" name="tipo" />
-						</b:navCommandLink>
-					</b:dropMenu>
+				<b:dropMenu value="#{msg.cadastrar}" iconAwesome ="database">
+					<b:navCommandLink value="#{msg.clientes}" outcome="/clientes/c_cadastrar" iconAwesome="user-plus"/>
+					<b:navCommandLink value="#{msg.cardapio}" outcome="/produtos/p_cadastrar" iconAwesome="book"/>
+				</b:dropMenu>
+				<b:dropMenu value="#{msg.listar}" iconAwesome="bars">
+					<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
+							outcome="/produtos/p_listar"/>
+					<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
+							outcome="/produtos/p_listar"/>
 				</b:dropMenu>
 			</b:navbarLinks>
 		</h:form>
+
 		<h:form styleClass="navbar-form navbar-right">
 			<div class="form-group">
+
 				<b:inputText value="#{signInSignUpBBean.email}" fieldSize="sm"
 					placeholder="#{msg.email}" />
+
 			</div>
 			<div class="form-group">
+
 				<b:inputText value="#{signInSignUpBBean.senha}" fieldSize="sm"
 					placeholder="#{msg.senha}" />
+
 			</div>
 			<div class="form-group">
 				<b:commandButton value="#{msg.login}" look="success" size="sm"
-					action="#{signInSignUpBBean.logar()}" />
+					action="#{signInSignUpBBean.logar()}" iconAwesome="sign-in"/>
 			</div>
 		</h:form>
 	</b:navBar>
-	<ui:insert name="content" />
+	<b:container fluid="true" style="margin-top:100">
+		<ui:insert name="content" />
+	</b:container>
 	<b:navBar fixed="bottom">
 		<p>© Company 2014</p>
 	</b:navBar>

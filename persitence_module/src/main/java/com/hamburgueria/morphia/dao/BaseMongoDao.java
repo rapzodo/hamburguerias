@@ -1,11 +1,15 @@
 package com.hamburgueria.morphia.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.aggregation.Group;
 import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -16,6 +20,7 @@ import com.hamburgueria.constants.ServiceConstants;
 import com.hamburgueria.mongo.entities.DomainSuperClass;
 import com.hamburgueria.mongo.entities.Sequence;
 import com.hamburgueria.morphia.db.MorphiaDS;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoException;
 
 
@@ -61,6 +66,11 @@ public class BaseMongoDao<MODEL>{
 			return getCounterSeq();
 		}
 		return counter.getCounter();
+	}
+	
+	public List<String> listDistinct(String field){
+		DBCollection collection = ds.getCollection(classe);
+		return (List<String>)collection.distinct(field);
 	}
 	
 	public MODEL getById(Long _id){
@@ -129,7 +139,9 @@ public class BaseMongoDao<MODEL>{
 	public List<MODEL> getByComplexQueryAnd(Map<String, Object> fieldValuePairs){
 		Query<?> query = ds.createQuery(classe);
 		for(String key : fieldValuePairs.keySet()){
-			query.field(key).equal(fieldValuePairs.get(key));
+			if(fieldValuePairs.get(key) != null){
+				query.field(key).equal(fieldValuePairs.get(key));
+			}
 		}
 		return (List<MODEL>) query.asList();
 	}

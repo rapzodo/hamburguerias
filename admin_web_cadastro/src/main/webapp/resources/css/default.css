@@ -1,9 +1,9 @@
 @CHARSET "ISO-8859-1";
 
-/*.ui-widget,.ui-widget .ui-widget {
+.ui-widget,.ui-widget .ui-widget {
 	font-size: 100%;
 }
-*/
+
 .ui-layout-north {
 	z-index: 20 !important;
 	overflow: visible !important;

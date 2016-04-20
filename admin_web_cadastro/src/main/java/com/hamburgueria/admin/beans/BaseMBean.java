@@ -23,7 +23,6 @@ public class BaseMBean<MODEL> {
 		this.dao = dao;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void inserir() {
 		long id = -1;
 		try {

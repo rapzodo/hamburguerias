@@ -8,89 +8,93 @@
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
 			<h:form styleClass="custom">
-				<b:panel title="Cadastro de #{msg.clientes}" collapsible="false"
-					style="width:auto; margin: 5 auto">
-					<b:panelGrid id="inputGrid" colSpans="12">
-					<b:row>
-					<b:column span="6">
-						<h3>Dados Pessoais</h3>
-						<b:inputText label="Nome Completo" renderLabel="true" id="nome"
-							value="#{clienteMBean.model.nome}" span="12"
-							placeholder="ex.: Fulano De Tal" required="true" />
-						<b:inputText label="E-mail" renderLabel="true" id="desc"
-							value="#{clienteMBean.model.emailId}" span="6"
-							placeholder="ex.: usuario@email.com" required="true"
-							validatorMessage="Valores fora do Padrão! usuario@email.com">
-							<f:facet name="prepend">
-								<h:outputText value="@" />
-							</f:facet>
-							<f:validateRegex pattern="#{msg.email_regex}" />
-						</b:inputText>
-						<b:inputSecret value="#{clienteMBean.model.password}"
-							label="#{msg.senha}" renderLabel="true" required="true">
-							<f:facet name="prepend">
-								<b:iconAwesome name="lock" />
-							</f:facet>
-						</b:inputSecret>
-						<b:inputText label="CPF" renderLabel="true" id="cpf" span="6"
-							value="#{clienteMBean.model.cpf}" tooltip="Somente Números"
-							tooltip-position="right" maxlength="11"
-							validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
-							<f:validateRegex pattern="#{msg.cpf_regex}" />
-						</b:inputText>
+				<b:row>
+					<b:column span="3">
 					</b:column>
 					<b:column span="6">
-						<h3>Endereço</h3>
-						<b:inputText label="Rua" renderLabel="true" id="rua"
-							value="#{clienteMBean.endereco.rua}"
-							placeholder="ex.: Av. avenida nomedaavenida, numero" >
-						</b:inputText>
-						<b:inputText label="Bairro" renderLabel="true" id="bairro"
-							value="#{clienteMBean.endereco.bairro}" >
-						</b:inputText>
-						<b:inputText label="Cidade" renderLabel="true" id="cidade"
-							value="#{clienteMBean.endereco.cidade}" >
-						</b:inputText>
-						<b:selectOneMenu label="UF" renderLabel="true"
-							value="#{clienteMBean.endereco.uf}" >
-							<f:selectItem itemLabel="Selecione" itemValue="" />
-							<f:selectItems value="#{appMBean.ufList}" />
-						</b:selectOneMenu>
-						<b:inputText label="CEP" renderLabel="true" id="cep"
-							value="#{clienteMBean.endereco.cep}" 
-							placeholder="ex.:99999-999"
-							validatorMessage="Valores fora do Padrão! 99999-999">
-							<f:validateRegex pattern="#{msg.zipcode_regex}" />
-						</b:inputText>
+						<b:panel title="Cadastro de #{msg.clientes}" collapsible="false"
+							style="width:auto; margin: 5 auto">
+							<b:panelGrid id="inputGrid" colSpans="12">
+								<b:row>
+									<b:column span="6">
+										<h3>Dados Pessoais</h3>
+										<b:inputText label="Nome Completo" renderLabel="true"
+											id="nome" value="#{clienteMBean.model.nome}" span="12"
+											placeholder="ex.: Fulano De Tal" required="true" />
+										<b:inputText label="E-mail" renderLabel="true" id="desc"
+											value="#{clienteMBean.model.emailId}" span="6"
+											placeholder="ex.: usuario@email.com" required="true"
+											validatorMessage="Valores fora do Padrão! usuario@email.com">
+											<f:facet name="prepend">
+												<h:outputText value="@" />
+											</f:facet>
+											<f:validateRegex pattern="#{msg.email_regex}" />
+										</b:inputText>
+										<b:inputSecret value="#{clienteMBean.model.password}"
+											label="#{msg.senha}" renderLabel="true" required="true">
+											<f:facet name="prepend">
+												<b:iconAwesome name="lock" />
+											</f:facet>
+										</b:inputSecret>
+										<b:inputText label="CPF" renderLabel="true" id="cpf" span="6"
+											value="#{clienteMBean.model.cpf}" tooltip="Somente Números"
+											tooltip-position="right" maxlength="11"
+											validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
+											<f:validateRegex pattern="#{msg.cpf_regex}" />
+										</b:inputText>
+									</b:column>
+									<b:column span="6">
+										<h3>Endereço</h3>
+										<b:inputText label="Rua" renderLabel="true" id="rua"
+											value="#{clienteMBean.endereco.rua}" span="12"
+											placeholder="ex.: Av. avenida nomedaavenida, numero">
+										</b:inputText>
+										<b:inputText label="Bairro" renderLabel="true" id="bairro"
+											value="#{clienteMBean.endereco.bairro}" span="12">
+										</b:inputText>
+										<b:inputText label="Cidade" renderLabel="true" id="cidade"
+											value="#{clienteMBean.endereco.cidade}" span="12">
+										</b:inputText>
+										<b:selectOneMenu label="UF" renderLabel="true"
+											value="#{clienteMBean.endereco.uf}" span="4">
+											<f:selectItem itemLabel="Selecione" itemValue="" />
+											<f:selectItems value="#{appMBean.ufList}" />
+										</b:selectOneMenu>
+										<b:inputText label="CEP" renderLabel="true" id="cep"
+											value="#{clienteMBean.endereco.cep}" span="4"
+											placeholder="ex.:99999-999"
+											validatorMessage="Valores fora do Padrão! 99999-999">
+											<f:validateRegex pattern="#{msg.zipcode_regex}" />
+										</b:inputText>
+									</b:column>
+								</b:row>
+								<b:row>
+									<b:column span="12">
+										<p:growl showDetail="true" showSummary="true" autoUpdate="true" />
+									</b:column>
+								</b:row>
+								<b:row>
+									<b:column span="3">
+									</b:column>
+									<b:column span="3">
+										<b:commandButton value="#{msg.enviar}" look="success"
+											action="#{clienteMBean.cadastraCliente()}" iconAwesome="save"
+											size="lg" ajax="true" update="@form" />
+									</b:column>
+									<b:column span="3">
+										<b:commandButton value="Limpar" look="danger"
+											action="#{clienteMBean.limpar()}" size="lg"
+											iconAwesome="eraser" update="@form" immediate="true"
+											ajax="true" />
+									</b:column>
+									<b:column span="3">
+									</b:column>
+								</b:row>
+							</b:panelGrid>
+						</b:panel>
 					</b:column>
-					</b:row>
-					<b:row>
-							<b:column span="12">
-								<p:growl showDetail="true" showSummary="true" autoUpdate="true"
-									severity="info" />
-								<b:messages id="msgs"></b:messages>
-								<p:separator />
-							</b:column>
-						</b:row>
-						<b:row>
-							<b:column span="3">
-							</b:column>
-							<b:column span="3">
-								<b:commandButton value="#{msg.enviar}" look="success"
-									action="#{clienteMBean.cadastraCliente()}" iconAwesome="save"
-									size="lg" ajax="true" update="@form" />
-							</b:column>
-							<b:column span="3">
-								<b:commandButton value="Limpar" look="danger"
-									action="#{clienteMBean.limpar()}" size="lg"
-									iconAwesome="eraser" update="@form" immediate="true"
-									ajax="true" />
-							</b:column>
-							<b:column span="3">
-							</b:column>
-						</b:row>
-					</b:panelGrid>
-				</b:panel>
+					<b:column span="3"></b:column>
+				</b:row>
 			</h:form>
 		</ui:define>
 	</ui:composition>

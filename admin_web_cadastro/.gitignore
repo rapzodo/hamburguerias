@@ -1,2 +1,10 @@
 /target/
+<<<<<<< HEAD
 /bin/
+=======
+/.settings/
+/.classpath
+/.gitignore
+/.project
+/pom.xml
+>>>>>>> branch 'master' of https://github.com/rapzodo/hamburguerias

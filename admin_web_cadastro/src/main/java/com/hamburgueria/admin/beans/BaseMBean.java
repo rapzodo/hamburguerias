@@ -1,17 +1,24 @@
 package com.hamburgueria.admin.beans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 
 import com.hamburgueria.admin.common.MessagesUtil;
 import com.hamburgueria.constants.DBConstants;
 import com.hamburgueria.constants.ServiceConstants;
+import com.hamburgueria.mongo.entities.DomainSuperClass;
 import com.hamburgueria.morphia.dao.BaseMongoDao;
 import com.mongodb.DuplicateKeyException;
 
 @ManagedBean
 @SuppressWarnings(value={"unchecked"})
-public class BaseMBean<MODEL> {
+public class BaseMBean<MODEL extends DomainSuperClass> implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7549883211371837727L;
 	protected BaseMongoDao<MODEL> dao;
 	private MODEL model;
 
@@ -44,6 +51,11 @@ public class BaseMBean<MODEL> {
 		}
 	}
 
+	public void excluir(){
+		dao.deleteModel(model);
+		MessagesUtil.createSuccessMsg(null, ServiceConstants.SUCCESS, "excluido com sucesso!");
+	}
+	
 	public MODEL getModel() {
 		return model;
 	}

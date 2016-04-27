@@ -7,23 +7,29 @@ import javax.faces.bean.ViewScoped;
 
 import com.hamburgueria.mongo.entities.Cliente;
 import com.hamburgueria.mongo.entities.Endereco;
+import com.hamburgueria.mongo.entities.Restaurante;
 import com.hamburgueria.morphia.dao.ClienteDao;
+import com.hamburgueria.morphia.dao.RestauranteDao;
 
 @ManagedBean
 @ViewScoped
-public class ClienteMBean extends BaseMBean<Cliente>{
+public class RestauranteMBean extends BaseMBean<Restaurante>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1253323164116452256L;
 	private Endereco endereco;
 	private List<Cliente> clientes;
 	private ClienteDao cDao;
 	
 	
-	public ClienteMBean(){
-		super(new ClienteDao(), new Cliente());
+	public RestauranteMBean(){
+		super(new RestauranteDao(), new Restaurante());
 		endereco = new Endereco();
 	}
 	
-	public void cadastraCliente(){
+	public void cadastraRestaurante(){
 		getModel().setEndereco(endereco);
 		inserir();
 	}

@@ -3,6 +3,8 @@ package com.hamburgueria.mongo.entities;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.utils.IndexType;
 
@@ -16,6 +18,7 @@ public class UsuarioSistema extends DomainSuperClass {
 	 * 
 	 */
 	private static final long serialVersionUID = 7917921256091335248L;
+	@Indexed(options=@IndexOptions(unique=true))
 	private String emailId;
 	private String password;
 	private String telefone;

@@ -1,0 +1,43 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<b:container fluid="true" style="margin-top:100">
+				<h:form id="loginForm">
+					<h3 class="center-h">VOCÊ É...</h3>
+					<hr />
+					<b:panelGrid id="inputGrid" colSpans="4,2,2,4">
+						<b:column></b:column>
+						<h:outputLabel value="#{msg.clientes}" for="userbt"
+							styleClass="title" />
+						<h:outputLabel value="#{msg.restaurantes}" for="restbt"
+							styleClass="title" />
+						<b:column></b:column>
+						<b:column></b:column>
+						<b:commandButton id="userbt"
+							onclick="ajax:pageControlBean.setPage('/clientes/c_cadastrar.xhtml')"
+							size="lg" ajax="true" update="@form @form:ajaxContent" 
+							styleClass="wide-bt">
+							<b:iconAwesome name="user" size="5x"></b:iconAwesome>
+						</b:commandButton>
+						<b:commandButton id="restbt"
+							onclick="ajax:pageControlBean.setPage('/restaurantes/r_cadastrar.xhtml')"
+							size="lg" ajax="true" update="@form @form:ajaxContent" 
+							styleClass="wide-bt">
+							<b:iconAwesome name="cutlery" size="5x" disabled="true"></b:iconAwesome>
+						</b:commandButton>
+						<b:column></b:column>
+					</b:panelGrid>
+					<b:panelGrid id="ajaxContent" colSpans="12">
+						<ui:include src="#{pageControlBean.page}" />
+					</b:panelGrid>
+				</h:form>
+			</b:container>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

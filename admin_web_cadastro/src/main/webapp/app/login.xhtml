@@ -1,0 +1,47 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<h:form id="loginForm">
+				<b:container fluid="true" style="margin-top:100">
+					<b:row>
+						<b:column span="4" />
+						<b:column span="4">
+							<b:messages />
+							<b:panel title="#{msg.login}" collapsible="false">
+								<b:panelGrid id="inputGrid" colSpans="12">
+									<b:inputText label="#{msg.email_login}" renderLabel="true"
+										id="desc" value="#{signInSignUpMBean.email}"
+										span="12" placeholder="ex.: usuario@email.com" required="true"
+										validatorMessage="Valores fora do Padrão! usuario@email.com">
+										<f:facet name="prepend">
+											<h:outputText value="@" />
+										</f:facet>
+										<f:validateRegex pattern="#{msg.email_regex}" />
+									</b:inputText>
+									<b:inputSecret
+										value="#{signInSignUpMBean.senha}" span="12"
+										label="#{msg.senha}" renderLabel="true" required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="lock" />
+										</f:facet>
+									</b:inputSecret>
+									<b:commandButton value="#{msg.login}" look="success"
+										action="#{signInSignUpMBean.logar()}"
+										iconAwesome="sign-in" size="lg" ajax="true" update="@form"
+										styleClass="login-bt" />
+								</b:panelGrid>
+							</b:panel>
+						</b:column>
+						<b:column span="4"></b:column>
+					</b:row>
+				</b:container>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

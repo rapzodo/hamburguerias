@@ -32,7 +32,8 @@
 .padding10 {
 	padding-right: 3px !important;
 }
-.inputBig{
+
+.inputBig {
 	width: 450;
 }
 
@@ -53,6 +54,131 @@
 	color: #b94a48;
 }
 
-.login{
-	font-size: 85% !important; 
+.login {
+	font-size: 85% !important;
+}
+
+.center {
+	margin: 40% 40%;
+}
+
+.center-v {
+	margin: 40% auto;
+}
+
+.center-h {
+	margin: auto 30%;
+}
+
+.align-r {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-right: auto;
+	margin-left: 60%;
+}
+
+.align-l {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-right: 60%;
+	margin-left: auto;
+}
+
+.wide-bt {
+	width: 220px;
+}
+
+.login-bt {
+	width: 100%;
+}
+
+.edit-bt {
+	font-size: 1.5em;
+	margin: 20 auto;
+}
+
+.transparent {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bg {
+	background-image:
+		url(http://parkresto.com/wp-content/themes/parkrestaurant/images/11onlinereservationpark.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: 100% 100%;
+	background-color: transparent;
+}
+
+.menu-bar {
+	height: 80px;
+	padding-top: 15px;
+}
+
+.title {
+	font-size: 2em;
+	font: bold;
+}
+
+.currency {
+	font-size: 1.5em;
+}
+
+.description {
+	font-size: 1em;
+	font-style: italic;
+}
+
+btn-success {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
+
+.btn-success:focus,.btn-success.focus {
+	color: #fff;
+	background-color: #449d44;
+	border-color: #255625;
+}
+
+.btn-success:hover {
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+}
+
+.btn-success:active,.btn-success.active,.open>.dropdown-toggle.btn-success
+	{
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+}
+
+.btn {
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: normal;
+	text-align: center;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.428571429;
+	border-radius: 5px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.btn-success:active:hover,.btn-success.active:hover,.open>.dropdown-toggle.btn-success:hover,.btn-success:active:focus,.btn-success.active:focus,.open>.dropdown-toggle.btn-success:focus,.btn-success:active.focus,.btn-success.active.focus,.open>.dropdown-toggle.btn-success.focus
+	{
+	color: #fff;
+	background-color: #398439;
+	border-color: #255625;
 }

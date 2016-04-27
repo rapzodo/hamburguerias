@@ -1,15 +1,11 @@
 package com.hamburgueria.morphia.dao;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.aggregation.AggregationPipeline;
-import org.mongodb.morphia.aggregation.Group;
 import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -20,8 +16,11 @@ import com.hamburgueria.constants.ServiceConstants;
 import com.hamburgueria.mongo.entities.DomainSuperClass;
 import com.hamburgueria.mongo.entities.Sequence;
 import com.hamburgueria.morphia.db.MorphiaDS;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import com.mongodb.MongoException;
+import com.sun.appserv.jdbc.DataSource;
 
 
 @SuppressWarnings("unchecked")
@@ -122,6 +121,9 @@ public class BaseMongoDao<MODEL>{
 		MODEL model = getById(id);
 		return ds.delete(model).getN();
 	}
+	public int deleteModel(MODEL model){
+		return ds.delete(model).getN();
+	}
 
 	public long saveOrUpdate(MODEL model) throws MongoException{
 		if(model instanceof DomainSuperClass){
@@ -160,13 +162,13 @@ public class BaseMongoDao<MODEL>{
 				.field(DateFieldName).lessThanOrEq(endDt).asList();
 	}
 	
-	public List<MODEL> getAllOnlyFields(String fieldsQuery){
+	public List<MODEL> getAllOnlyFields(boolean retrieve, String fieldsQuery){
 	    	String[] fields = fieldsQuery.split(ServiceConstants.QUERY_SEPARATOR);
 	    	Query<?> query = ds.createQuery(classe);
 	    	if(fields.length > 0){
-	    		query.retrievedFields(true, fields);
+	    		query.retrievedFields(retrieve, fields);
 	    	}else
-	    		query.retrievedFields(true, fieldsQuery);
+	    		query.retrievedFields(retrieve, fieldsQuery);
 		return (List<MODEL>) query.asList();
 	}
 	

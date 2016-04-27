@@ -7,15 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import org.mongodb.morphia.query.MorphiaIterator;
-import org.mongodb.morphia.query.Query;
-
-import com.hamburgueria.mongo.entities.Produto;
+import com.hamburgueria.mongo.entities.Categoria;
 import com.hamburgueria.morphia.dao.CategoriaDao;
-import com.hamburgueria.morphia.dao.ProdutoDao;
-import com.mongodb.AggregationOptions;
-import com.mongodb.AggregationOutput;
-import com.mongodb.operation.AggregateToCollectionOperation;
 
 @ManagedBean
 @ApplicationScoped
@@ -23,11 +16,12 @@ public class AppMBean {
 
 	private Boolean admin = false;
 	private List<String> ufList = Arrays.asList("SP","AM","PR","SC","RS","RJ");
-	private List<String> categoria = Arrays.asList("Bebidas","Lanches","Entradas","Aperitivos","Outros");
+	private List<String> categoria;
+	private List<Categoria> categorias;
 
 	@PostConstruct
 	public void init(){
-		categoria = new ProdutoDao().listDistinct("categoria");
+		categoria = new CategoriaDao().listDistinct("descricao");
 	}
 	
 	public Boolean getAdmin() {
@@ -52,6 +46,14 @@ public class AppMBean {
 
 	public void setCategoria(List<String> categoria) {
 		this.categoria = categoria;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 	
 	

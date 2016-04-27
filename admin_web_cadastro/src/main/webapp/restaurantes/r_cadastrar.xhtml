@@ -1,0 +1,96 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<b:container fluid="true" style="margin-top:100">
+				<h:form>
+					<b:row>
+						<b:column span="4">
+						</b:column>
+						<b:column span="4">
+							<b:panel title="Cadastro de #{msg.restaurantes}"
+								collapsible="false" look="primary">
+								<b:panelGrid colSpans="12">
+									<b:inputText label="#{msg.razao}" renderLabel="true" id="razao"
+										value="#{signInSignUpMBean.restaurante.razaoSocial}" span="12"
+										placeholder="ex.: Restaurante do Dono" required="true" />
+									<b:inputText label="#{msg.email}" renderLabel="true" id="email"
+										value="#{signInSignUpMBean.restaurante.emailId}" span="12"
+										placeholder="ex.: usuario@email.com" required="true"
+										validatorMessage="Valores fora do Padrão! usuario@email.com">
+										<f:facet name="prepend">
+											<h:outputText value="@" />
+										</f:facet>
+										<f:validateRegex pattern="#{msg.email_regex}" />
+									</b:inputText>
+									<b:inputSecret value="#{signInSignUpMBean.restaurante.password}"
+										span="12" label="#{msg.senha}" renderLabel="true"
+										required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="lock" />
+										</f:facet>
+									</b:inputSecret>
+									<b:inputText label="CNPJ" renderLabel="true" id="cnpj"
+										span="12" value="#{signInSignUpMBean.restaurante.cnpj}"
+										tooltip-position="right" maxlength="11" required="true"
+										validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
+										<f:validateRegex pattern="#{msg.cpf_regex}" />
+									</b:inputText>
+									<b:inputText value="#{signInSignUpMBean.restaurante.telefone}"
+										span="12" label="#{msg.tel}" renderLabel="true"
+										required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="phone" />
+										</f:facet>
+									</b:inputText>
+									<b:inputText value="#{signInSignUpMBean.restaurante.celular}"
+										span="12" label="#{msg.cel}" renderLabel="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="mobile" />
+										</f:facet>
+									</b:inputText>
+									<h3>Endereço</h3>
+									<b:inputText label="Rua" renderLabel="true" id="rua"
+										value="#{signInSignUpMBean.endereco.rua}" span="12" required="true"
+										placeholder="ex.: Av. avenida nome da avenida, numero">
+									</b:inputText>
+									<b:inputText label="Bairro" renderLabel="true" id="bairro"
+										required="true" value="#{signInSignUpMBean.endereco.bairro}"
+										span="12">
+									</b:inputText>
+									<b:inputText label="Cidade" renderLabel="true" id="cidade"
+										required="true" value="#{signInSignUpMBean.endereco.cidade}"
+										span="12">
+									</b:inputText>
+									<b:selectOneMenu label="UF" renderLabel="true" required="true"
+										value="#{signInSignUpMBean.endereco.uf}" span="4">
+										<f:selectItem itemLabel="Selecione" itemValue="" />
+										<f:selectItems value="#{appMBean.ufList}" />
+									</b:selectOneMenu>
+									<b:inputText label="CEP" renderLabel="true" id="cep"
+										value="#{signInSignUpMBean.endereco.cep}" span="12"
+										placeholder="ex.:99999999" maxlength="8" required="true">
+									</b:inputText>
+								</b:panelGrid>
+								<b:panelGrid colSpans="6,6">
+									<b:commandButton value="#{msg.enviar}" look="success"
+										action="#{signInSignUpMBean.signUp()}" iconAwesome="save"
+										size="lg" update="@form growlMsg"
+										styleClass="wide-bt" />
+									<b:commandButton value="Limpar" look="danger" type="reset"
+										size="lg" iconAwesome="eraser" styleClass="wide-bt" />
+								</b:panelGrid>
+							</b:panel>
+						</b:column>
+						<b:column span="4"></b:column>
+					</b:row>
+				</h:form>
+			</b:container>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

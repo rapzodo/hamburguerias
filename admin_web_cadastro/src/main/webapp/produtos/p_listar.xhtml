@@ -7,11 +7,11 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
-			<h:form>
-				<b:container fluid="true" id="resultContainer">
+			<b:container fluid="true" id="resultContainer" style="margin-top:100">
+				<h:form>
 					<b:row>
-					<b:column span="2">
-					</b:column>
+						<b:column span="2">
+						</b:column>
 						<b:column span="8">
 							<p:tabView value="#{appMBean.categoria}" var="cat" dynamic="true"
 								cache="true">
@@ -20,18 +20,26 @@
 								<p:tab title="#{cat}" id="produtosTabs">
 									<ui:repeat var="item" value="#{menuMBean.menu}">
 										<b:well>
-											<b:panelGrid colSpans="3,9">
-												<p:graphicImage value="/img/auto_retrato.jpg" height="120"
-													width="120" />
+											<b:panelGrid colSpans="3,9" id="parentPanel">
+												<b:thumbnail>
+													<img src="../img/burgue1.jpeg" />
+													<ui:remove>
+														<b:iconAwesome name="question-circle" size="5x"
+															styleClass="center-h" disabled="true" rendered="true" />
+													</ui:remove>
+												</b:thumbnail>
 												<p:outputPanel>
 													<b:row>
-														<b:column span="9">
+														<b:column span="8">
 															<b:row>
-																<h:outputText value="#{item.nome}" style="font-size:2em" />
+																<p:rating></p:rating>
+															</b:row>
+															<b:row>
+																<h:outputText value="#{item.nome}" styleClass="title" />
 															</b:row>
 															<b:row>
 																<h:outputText value="#{item.descricao}"
-																	style="font-size:1em" />
+																	styleClass="description" />
 															</b:row>
 															<b:row>
 																<h:outputText value="#{item.preco}"
@@ -40,27 +48,34 @@
 																</h:outputText>
 															</b:row>
 														</b:column>
-														<b:column span="3">
-															<b:commandButton value="#{msg.editar}"
-																action="#{menuMBean.editar}" iconAwesome="pencil"
-																update="@form" ajax="true" size="lg" 
-																style="font-size:1.5em; margin:20 auto">
-																<f:setPropertyActionListener value="#{item}"
-																	target="#{menuMBean.model}" />
-															</b:commandButton>
+														<b:column span="4">
+															<b:buttonGroup>
+																<b:button value="#{msg.editar}"
+																	outcome="/produtos/p_cadastrar" iconAwesome="pencil"
+																	size="lg">
+																	<f:param name="id" value="#{item._id}" />
+																</b:button>
+																<b:commandButton value="#{msg.excluir}"
+																	action="#{menuMBean.excluir}" iconAwesome="trash"
+																	update="@form @form:parentPanel growlMsg" ajax="true"
+																	size="lg">
+																	<f:setPropertyActionListener value="#{item}"
+																		target="#{menuMBean.model}" />
+																</b:commandButton>
+															</b:buttonGroup>
 														</b:column>
 													</b:row>
 												</p:outputPanel>
-												</b:panelGrid>
-											</b:well>
+											</b:panelGrid>
+										</b:well>
 									</ui:repeat>
 								</p:tab>
 							</p:tabView>
 						</b:column>
 						<b:column span="2"></b:column>
 					</b:row>
-				</b:container>
-			</h:form>
+				</h:form>
+			</b:container>
 		</ui:define>
 	</ui:composition>
 </ui:fragment>

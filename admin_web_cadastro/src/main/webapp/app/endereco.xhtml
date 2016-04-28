@@ -1,0 +1,27 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<h3>Endereço</h3>
+	<b:inputText label="Rua" renderLabel="true" id="rua"
+		value="#{clienteMBean.endereco.rua}" span="12" required="true"
+		placeholder="ex.: Av. avenida nome da avenida, numero">
+	</b:inputText>
+	<b:inputText label="Bairro" renderLabel="true" id="bairro"
+		required="true" value="#{clienteMBean.endereco.bairro}" span="12">
+	</b:inputText>
+	<b:inputText label="Cidade" renderLabel="true" id="cidade"
+		required="true" value="#{clienteMBean.endereco.cidade}" span="12">
+	</b:inputText>
+	<b:selectOneMenu label="UF" renderLabel="true" required="true"
+		value="#{clienteMBean.endereco.uf}" span="4">
+		<f:selectItem itemLabel="Selecione" itemValue="" />
+		<f:selectItems value="#{appMBean.ufList}" />
+	</b:selectOneMenu>
+	<b:inputText label="CEP" renderLabel="true" id="cep"
+		value="#{clienteMBean.endereco.cep}" span="12"
+		placeholder="ex.:99999999" maxlength="8" required="true">
+	</b:inputText>

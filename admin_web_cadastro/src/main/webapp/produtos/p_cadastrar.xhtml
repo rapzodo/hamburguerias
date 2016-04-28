@@ -7,67 +7,66 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
-			<h:form enctype="multipart/form-data">
-				<b:row>
-					<b:column span="3">
-					</b:column>
-					<b:column span="6">
-						<b:panel title="Cadastro de #{msg.produtos}" collapsible="false"
-							style="width:auto; margin: 0 auto">
-							<b:panelGrid id="inputGrid" colSpans="12">
-								<b:selectOneMenu label="#{msg.categoria}"
-									value="#{menuMBean.model.categoria}" span="6" required="true">
-									<f:facet name="prepend">
-										<b:iconAwesome name="bars" addon="true" />
-									</f:facet>
-									<f:selectItem itemValue="" itemLabel="Selecionar" />
-									<f:selectItems value="#{appMBean.categoria}" />
-								</b:selectOneMenu>
-								<b:inputText label="Nome" renderLabel="true" id="nome"
-									value="#{menuMBean.model.nome}" placeholder="ex.: Da Casa"
-									required="true" span="6" />
-								<b:inputText label="#{msg.preco}" renderLabel="true" id="preco"
-									value="#{menuMBean.model.preco}" tooltip-position="bottom"
-									span="3" required="true">
-									<f:facet name="prepend">
-										<h:outputText value="R$" />
-									</f:facet>
-								</b:inputText>
-								<b:inputTextarea label="Descrição" renderLabel="true" id="desc"
-									required="@previous != null"
-									value="#{menuMBean.model.descricao}"
-									placeholder="ex: Feito com carne de Angus..." span="12" />
-								<b:well>
-									<ui:remove>
-										<p:fileUpload sizeLimit="#{msg.file_size_limit}"
-											value="#{menuMBean.foto}" label="Foto" update="msgs"
-											mode="simple" fileUploadListener="#{menuMBean.enviaFoto}"
-											skinSimple="true" />
-									</ui:remove>
-									<p:growl showDetail="true" showSummary="true" autoUpdate="true" />
+			<b:container fluid="true" style="margin-top:100">
+				<h:form enctype="multipart/form-data">
+					<b:row>
+						<b:column span="3">
+						</b:column>
+						<b:column span="6">
+							<b:panel title="Cadastro de #{msg.produtos}" collapsible="false">
+								<b:panelGrid id="inputGrid" colSpans="12">
+									<b:selectOneMenu label="#{msg.categoria}"
+										value="#{menuMBean.categoria}" required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="bars" addon="true" />
+										</f:facet>
+										<f:selectItem itemValue="" itemLabel="Selecionar" />
+										<f:selectItems value="#{appMBean.categoria}" />
+									</b:selectOneMenu>
+									<b:inputText label="Nome" renderLabel="true" id="nome"
+										value="#{menuMBean.model.nome}" placeholder="ex.: Da Casa"
+										required="true" requiredMessage="#{msg.mandatory_field}" />
+									<b:inputText label="#{msg.preco}" renderLabel="true" id="preco"
+										value="#{menuMBean.model.preco}" tooltip-position="bottom"
+										required="true" requiredMessage="#{msg.mandatory_field}">
+										<f:facet name="prepend">
+											<h:outputText value="R$" />
+										</f:facet>
+									</b:inputText>
+									<b:inputTextarea label="#{msg.descricao}" renderLabel="true"
+										id="desc" value="#{menuMBean.model.descricao}"
+										placeholder="ex: Feito com XXg de carne de ..." />
+								</b:panelGrid>
+								<b:well style="height:auto">
+									<p:graphicImage value="/img/burgue1.jpeg" width="310"
+										height="auto" rendered="true" />
+									<b:iconAwesome name="question-circle" size="5x"
+										styleClass="center" disabled="true" rendered="false" />
 								</b:well>
-								<b:row>
-									<b:column span="3">
-									</b:column>
-									<b:column span="3">
-										<b:commandButton value="#{msg.enviar}" look="success"
-											type="submit" action="#{menuMBean.cadastra()}"
-											iconAwesome="save" size="lg" update="@form" />
-									</b:column>
-									<b:column span="3">
-										<b:commandButton value="Limpar" type="reset" look="danger"
-											size="lg" iconAwesome="eraser" />
-									</b:column>
-									<b:column span="3">
-									</b:column>
-								</b:row>
-							</b:panelGrid>
-						</b:panel>
-					</b:column>
-					<b:column span="3">
-					</b:column>
-				</b:row>
-			</h:form>
+								<b:well>
+									<p:fileUpload sizeLimit="#{msg.file_size_limit}"
+										value="#{menuMBean.foto}" label="Foto" mode="simple"
+										fileUploadListener="#{menuMBean.enviaFoto}" skinSimple="true" />
+								</b:well>
+								<hr />
+								<b:panelGrid colSpans="6,6">
+									<ui:remove>
+										<p:commandButton value="#{msg.enviar}" update="@form"
+											styleClass="wide-bt" action="#{menuMBean.cadastra()}"></p:commandButton>
+									</ui:remove>
+									<b:commandButton value="#{msg.enviar}" look="success"
+										onclick="ajax:menuMBean.cadastra()" iconAwesome="save"
+										size="lg" update="@form growlMsg" styleClass="wide-bt" />
+									<b:commandButton value="Limpar" type="reset" look="danger"
+										size="lg" iconAwesome="eraser" styleClass="wide-bt" />
+								</b:panelGrid>
+							</b:panel>
+						</b:column>
+						<b:column span="3">
+						</b:column>
+					</b:row>
+				</h:form>
+			</b:container>
 		</ui:define>
 	</ui:composition>
 </ui:fragment>

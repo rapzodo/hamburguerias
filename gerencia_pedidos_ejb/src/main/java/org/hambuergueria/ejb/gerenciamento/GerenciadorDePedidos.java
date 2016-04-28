@@ -1,6 +1,5 @@
 package org.hambuergueria.ejb.gerenciamento;
 
-import java.util.Date;
 import java.util.PriorityQueue;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +15,12 @@ import javax.ejb.TimerService;
 import javax.jms.JMSException;
 import javax.jms.Session;
 
+import org.hambuergueria.ejb.comparators.PedidoComparator;
+import org.joda.time.LocalTime;
+import org.joda.time.Period;
+
 import com.hamburgueria.mongo.entities.Pedido;
+import com.hamburgueria.morphia.dao.PedidoDao;
 import com.services.messages.jms.MessageServices;
 import com.services.messages.jms.QueueMessageType;
 
@@ -25,19 +29,21 @@ import com.services.messages.jms.QueueMessageType;
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class GerenciadorDePedidos {
 
-	public static PriorityQueue<Pedido> filaDePedidos;
+	private static PriorityQueue<Pedido> filaDePedidos;
 	private static long TEMPO_MAX_PREPARO_PEDIDO_SEC = 10000;
+	public static final int TEMPO_LIMITE_MIN = 40;
 	
 	@Resource
 	private TimerService service;
 	
 	@PostConstruct
 	public void inicializa(){
-		filaDePedidos = new PriorityQueue<Pedido>();
+		System.out.println("STATING " + getClass().getSimpleName());
+		filaDePedidos = new PriorityQueue<Pedido>(new PedidoComparator());
 	}
 	
-	public static void priorizarPedido(Pedido pedido){
-		
+	public static void loadFromDBCollection(){
+		filaDePedidos.addAll(new PedidoDao().listAll());
 	}
 	
 	public static Pedido entregaPedido(){
@@ -50,7 +56,7 @@ public class GerenciadorDePedidos {
 	
 //	@Schedule(second="10",dayOfWeek="*",hour="12-00")
 	@Timeout
-	public void pedidosAtrasados(Timer timer){
+	public void enviaMensagemPedidosAposTimeout(Timer timer){
 		/**TO DO
 		 * criar mensagem de alerta JMS e enviar pra fila
 		 */
@@ -64,10 +70,22 @@ public class GerenciadorDePedidos {
 		System.out.println("Repriorizar e criar alertas para Pedidos atrasados");
 	}
 	
-	public String adicionarPedido(Pedido pedido){
-		filaDePedidos.offer(pedido);
+	public static int calculaTempoEmPreparo(Pedido pedido){
+		Period periodo = Period.fieldDifference(LocalTime.fromDateFields(pedido.getDateCadastro()), LocalTime.now());
+		int segundosEmPreparo = periodo.toStandardSeconds().getSeconds();
+		return segundosEmPreparo / 60;
+	}
+	
+	public static boolean expirado(int minutosEmPreparo){
+		return minutosEmPreparo > TEMPO_LIMITE_MIN ;
+	}
+	
+	private void startTimer(){
 		service.createSingleActionTimer(TEMPO_MAX_PREPARO_PEDIDO_SEC, new TimerConfig(null,false));
-		return "Estourou o pedido as " + new Date();
+	}
+	
+	public Boolean adicionarPedido(Pedido pedido){
+		return filaDePedidos.offer(pedido);
 	}
 	
 }

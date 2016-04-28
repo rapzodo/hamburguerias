@@ -2,18 +2,16 @@ package com.hamburgueria.admin.beans;
 
 import java.io.Serializable;
 
-import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
 
-@Named
-@SessionScoped
+@ManagedBean
 public class PageControlBean implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -50312468817053402L;
-	private String page = "home.xhtml";
+	private String page;
 	
 	public PageControlBean() {
 		// TODO Auto-generated constructor stub

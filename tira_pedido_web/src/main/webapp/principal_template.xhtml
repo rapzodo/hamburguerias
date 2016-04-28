@@ -1,0 +1,98 @@
+<!DOCTYPE XHTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<f:loadBundle basename="resources.application" var="msg" />
+	<f:facet name="last">
+		<h:outputStylesheet library="css" name="default.css" />
+		<h:outputScript library="js" name="locale-primefaces.js" />
+	</f:facet>
+	<style type="text/css">
+.transparent {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bg {
+	background-image:
+		url(http://parkresto.com/wp-content/themes/parkrestaurant/images/11onlinereservationpark.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: 100% 100%;
+	background-color: transparent;
+}
+
+.ui-growl {
+	top: 80px;
+	right: 20px;
+}
+</style>
+</h:head>
+
+<h:body>
+	<b:panel rendered="false">
+		<b:navBar />
+		<b:navbarLinks />
+		<b:navLink />
+		<b:navCommandLink />
+		<p:commandButton />
+		<b:row />
+	</b:panel>
+
+	<b:navBar brand="EMPRESA" fixed="top" inverse="true" id="navBar"
+		style="height:80px; padding-top:15px" rendered="#{!appMBean.admin}">
+		<h:form>
+			<b:navbarLinks>
+				<b:navCommandLink value="Home" outcome="/app/home"
+					iconAwesome="home" iconAlign="left" />
+				<b:navCommandLink value="#{msg.pedidos}"
+					outcome="/clientes/c_cadastrar" iconAwesome="bars" />
+				<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
+					outcome="/produtos/p_listar" />
+			</b:navbarLinks>
+			<b:navbarLinks pull="right">
+				<b:navLink value=" #{tiraPedidoMBean.totalItems}" disabled="true">
+					<b:iconAwesome name="shopping-cart" size="3x" />
+					<h:outputText value="#{tiraPedidoMBean.atendimentoBean.pedido.valorTotal}">
+						<f:convertNumber type="currency" currencySymbol="R$"/>
+					</h:outputText>	
+				</b:navLink>
+			</b:navbarLinks>
+		</h:form>
+	</b:navBar>
+	<b:container id="infoContainer">
+		<b:row styleClass="margin-top10" id="row1">
+			<b:column span="10"></b:column>
+			<b:column span="2">
+				<b:row>
+					<b:column span="6">
+						<p:outputLabel for="pedido" value="#{msg.order_number}" />
+					</b:column>
+					<b:column span="6">
+						<h:outputText id="pedido"
+							value="#{tiraPedidoMBean.atendimentoBean.pedido._id}" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="6">
+						<p:outputLabel for="mesa" value="#{msg.table_number}" />
+					</b:column>
+					<b:column span="6">
+						<h:outputText id="mesa"
+							value="#{tiraPedidoMBean.atendimentoBean.pedido.numMesa}" />
+					</b:column>
+				</b:row>
+			</b:column>
+		</b:row>
+	</b:container>
+	<ui:insert name="content" />
+	<b:navBar fixed="bottom">
+		<p>© Company 2014</p>
+	</b:navBar>
+</h:body>
+</html>

@@ -5,10 +5,10 @@
 package org.hambuergueria.ejb.gerenciamento;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.DependsOn;
 import javax.ejb.LocalBean;
 import javax.ejb.PostActivate;
 import javax.ejb.PrePassivate;
@@ -32,17 +32,18 @@ import com.mongodb.MongoException;
  */
 @Stateful
 @LocalBean
+@DependsOn(value="GerenciadorDePedidos")
 public class PedidoSBean {
 
 	private PedidoDao dao;
 	private Pedido pedido;
-	private List<Produto> items;
 	@Resource
 	private TimerService service;
 	
 	@PostConstruct
 	public void inicializar(){
-		items = new ArrayList<Produto>();
+		System.out.println("INICIALIZANDO " + getClass().getSimpleName());
+		dao = (PedidoDao) DaoFactory.getDao(CommonConstants.TIPO_PEDIDO);
 	}
 	
 	@PostActivate
@@ -57,15 +58,20 @@ public class PedidoSBean {
     
     @Remove
     public void removeBean(){
+    	System.out.println("DESTROING BEAN " + getClass().getSimpleName());
     	submeterPedido();
-    	items = null;
     	pedido = null;
     	dao=null;
     }
     
-	public void criarPedido(Cliente cliente) {
+	public Pedido criarPedido(Cliente cliente, int mesa) {
     	pedido = new Pedido();
-    	pedido.setCliente(cliente);
+    	pedido.setNumMesa(mesa);
+    	pedido.set_id(dao.getCounterSeq());
+    	if(cliente.getEmailId() != null){
+    		pedido.setCliente(cliente);
+    	}
+    	return pedido;
     }
     
 	public Boolean adicionaProdutos(Produto item) {
@@ -74,16 +80,27 @@ public class PedidoSBean {
 		}
 		return pedido.getItems().add(item);
 	}
+	
 	public Boolean removerProdutos(Produto item) throws EmptyOrderException {
 		if(pedido.getItems()==null){
 			throw new EmptyOrderException();
 		}
-		return pedido.getItems().add(item);
+		return pedido.getItems().remove(item);
 	}
 	
 	public Long submeterPedido() throws MongoException{
 		pedido.set_id(dao.saveOrUpdate(pedido));
 		return pedido.get_id();
+	}
+	
+	public void calculaValorTotal(Double servico){
+		Double total = 0.0;
+		for(Produto item : pedido.getItems()){
+			total += item.getPreco();
+		}
+		total += servico;
+		pedido.setValorTotal(total);
+		pedido.setServico(servico);
 	}
 	
 	public Pedido getPedido() {
@@ -92,14 +109,6 @@ public class PedidoSBean {
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
-	}
-
-	public List<Produto> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Produto> items) {
-		this.items = items;
 	}
 
 }

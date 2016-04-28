@@ -20,7 +20,8 @@ public class Produto extends DomainSuperClass {
 	/**
 	 * 
 	 */
-	private String categoria;
+	@Reference
+	private Categoria categoria;
 	@Indexed(options=@IndexOptions(unique=true, name="nome"))
 	private String nome;
 	private Double preco;
@@ -51,11 +52,11 @@ public class Produto extends DomainSuperClass {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	public Categoria getCategoria() {
+		return categoria;
 	}
 	
 }

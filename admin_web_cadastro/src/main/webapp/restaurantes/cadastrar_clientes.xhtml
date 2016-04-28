@@ -1,0 +1,87 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<b:container fluid="true" style="margin-top:100">
+				<h:form>
+					<b:row>
+						<b:column span="4">
+						</b:column>
+						<b:column span="4">
+							<b:panel title="Cadastro de #{msg.clientes}" collapsible="false">
+								<b:panelGrid id="inputGrid" colSpans="12">
+									<h3>Dados Pessoais</h3>
+									<b:inputText label="Nome Completo" renderLabel="true" id="nome"
+										value="#{clienteMBean.model.nome}" span="12"
+										placeholder="ex.: Fulano De Tal" required="true" />
+									<b:inputText label="E-mail" renderLabel="true" id="desc"
+										value="#{clienteMBean.model.emailId}" span="12"
+										placeholder="ex.: usuario@email.com" required="true"
+										validatorMessage="Valores fora do Padrão! usuario@email.com">
+										<f:facet name="prepend">
+											<h:outputText value="@" />
+										</f:facet>
+										<f:validateRegex pattern="#{msg.email_regex}" />
+									</b:inputText>
+									<b:inputText label="CPF" renderLabel="true" id="cpf" span="12"
+										value="#{clienteMBean.model.cpf}" tooltip-position="right"
+										maxlength="11"
+										validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
+										<f:validateRegex pattern="#{msg.cpf_regex}" />
+									</b:inputText>
+									<b:inputText value="#{clienteMBean.model.telefone}" span="12"
+										label="#{msg.tel}" renderLabel="true" required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="phone" />
+										</f:facet>
+									</b:inputText>
+									<b:inputText value="#{clienteMBean.model.celular}" span="12"
+										label="#{msg.cel}" renderLabel="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="mobile" />
+										</f:facet>
+									</b:inputText>
+									<h3>Endereço</h3>
+									<b:inputText label="Rua" renderLabel="true" id="rua"
+										value="#{clienteMBean.endereco.rua}" span="12"
+										placeholder="ex.: Av. avenida nome da avenida, numero">
+									</b:inputText>
+									<b:inputText label="Bairro" renderLabel="true" id="bairro"
+										value="#{clienteMBean.endereco.bairro}" span="12">
+									</b:inputText>
+									<b:inputText label="Cidade" renderLabel="true" id="cidade"
+										value="#{clienteMBean.endereco.cidade}" span="12">
+									</b:inputText>
+									<b:selectOneMenu label="UF" renderLabel="true"
+										value="#{clienteMBean.endereco.uf}" span="4">
+										<f:selectItem itemLabel="Selecione" itemValue="" />
+										<f:selectItems value="#{appMBean.ufList}" />
+									</b:selectOneMenu>
+									<b:inputText label="CEP" renderLabel="true" id="cep"
+										value="#{clienteMBean.endereco.cep}" span="12"
+										placeholder="ex.:99999999" maxlength="8">
+									</b:inputText>
+								</b:panelGrid>
+								<hr/>
+								<b:panelGrid colSpans="6,6">
+									<b:commandButton value="#{msg.enviar}" look="success"
+										onclick="ajax:menuMBean.cadastraCliente()" iconAwesome="save"
+										size="lg" update="@form inputGrid growlMsg"
+										styleClass="wide-bt" />
+									<b:commandButton value="Limpar" look="danger" type="reset"
+										size="lg" iconAwesome="eraser" styleClass="wide-bt" />
+								</b:panelGrid>
+							</b:panel>
+						</b:column>
+						<b:column span="4"></b:column>
+					</b:row>
+				</h:form>
+			</b:container>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

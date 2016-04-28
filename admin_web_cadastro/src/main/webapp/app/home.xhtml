@@ -6,30 +6,32 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
-		<b:jumbotron>
-			<hr />
-			<b:row>
-				<b:column col-md="12">
-						<h1>#{msg.welcomeTitle}</h1>
-						<p>This is a template for a simple marketing or informational
-							website. It includes a large callout called a jumbotron and three
-							supporting pieces of content. Use it as a starting point to
-							create something more unique.</p>
-				</b:column>
-			</b:row>
-		</b:jumbotron>
-			<b:row>
-				<b:column col-md="12">
-					<b:well styleClass="transparent">
-						<h1>#{msg.welcomeTitle}</h1>
-						<p>This is a template for a simple marketing or informational
-							website. It includes a large callout called a jumbotron and three
-							supporting pieces of content. Use it as a starting point to
-							create something more unique.</p>
-					</b:well>
-				</b:column>
-			</b:row>
-			<hr />
+			<b:container fluid="true" style="margin-top:100">
+				<b:jumbotron>
+					<hr />
+					<b:row>
+						<b:column col-md="12">
+							<h1>#{msg.welcomeTitle}</h1>
+							<p>This is a template for a simple marketing or informational
+								website. It includes a large callout called a jumbotron and
+								three supporting pieces of content. Use it as a starting point
+								to create something more unique.</p>
+						</b:column>
+					</b:row>
+				</b:jumbotron>
+				<b:row>
+					<b:column col-md="12">
+						<b:well styleClass="transparent">
+							<h1>#{msg.welcomeTitle}</h1>
+							<p>This is a template for a simple marketing or informational
+								website. It includes a large callout called a jumbotron and
+								three supporting pieces of content. Use it as a starting point
+								to create something more unique.</p>
+						</b:well>
+					</b:column>
+				</b:row>
+				<hr />
+			</b:container>
 		</ui:define>
 	</ui:composition>
 </ui:fragment>

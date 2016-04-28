@@ -1,10 +1,10 @@
 package com.hamburgueria.morphia.dao;
 
-import com.hamburgueria.mongo.entities.Produto;
+import com.hamburgueria.mongo.entities.Categoria;
 
-public class CategoriaDao extends BaseMongoDao<Object> {
+public class CategoriaDao extends BaseMongoDao<Categoria> {
 	
 	public CategoriaDao(){
-		super(Produto.class);
+		super(Categoria.class);
 	}
 }

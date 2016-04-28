@@ -3,14 +3,14 @@ package com.hamburgueria.admin.beans;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import com.hamburgueria.mongo.entities.Cliente;
 import com.hamburgueria.mongo.entities.Endereco;
 import com.hamburgueria.morphia.dao.ClienteDao;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ClienteMBean extends BaseMBean<Cliente>{
 
 	private Endereco endereco;

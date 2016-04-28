@@ -13,79 +13,69 @@
 		<h:outputScript library="js" name="locale-primefaces.js" />
 	</f:facet>
 	<style type="text/css">
-.transparent {
-	background-color: rgba(255, 255, 255, 0.8);
-}
-
-.bg {
-	background-image:
-		url(http://parkresto.com/wp-content/themes/parkrestaurant/images/11onlinereservationpark.jpg);
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center;
-	background-size: 100% 100%;
-	background-color: transparent;
-}
-
 .ui-growl {
 	top: 80px;
 	right: 20px;
+}
 </style>
 </h:head>
 
 <h:body>
-	<b:panel rendered="false">
-		<b:navBar />
-		<b:navbarLinks />
-		<b:navLink />
-		<b:navCommandLink />
-		<p:commandButton/>
-		<b:row />
-	</b:panel>
-
-	<b:navBar brand="EMPRESA" fixed="top" inverse="true"
-		style="height:80px; padding-top:15px" rendered="#{!appMBean.admin}">
-		<h:form>
-			<b:navbarLinks>
-				<b:navCommandLink value="Home" outcome="/app/home"
-					iconAwesome="home" iconAlign="left" />
-				<b:dropMenu value="#{msg.cadastrar}" iconAwesome ="database">
-					<b:navCommandLink value="#{msg.clientes}" outcome="/clientes/c_cadastrar" iconAwesome="user-plus"/>
-					<b:navCommandLink value="#{msg.cardapio}" outcome="/produtos/p_cadastrar" iconAwesome="book"/>
-				</b:dropMenu>
-				<b:dropMenu value="#{msg.listar}" iconAwesome="bars">
-					<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
-							outcome="/produtos/p_listar"/>
-					<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
-							outcome="/produtos/p_listar"/>
-				</b:dropMenu>
-			</b:navbarLinks>
-		</h:form>
-
-		<h:form styleClass="navbar-form navbar-right">
-			<div class="form-group">
-
-				<b:inputText value="#{signInSignUpBBean.email}" fieldSize="sm"
-					placeholder="#{msg.email}" />
-
-			</div>
-			<div class="form-group">
-
-				<b:inputText value="#{signInSignUpBBean.senha}" fieldSize="sm"
-					placeholder="#{msg.senha}" />
-
-			</div>
-			<div class="form-group">
-				<b:commandButton value="#{msg.login}" look="success" size="sm"
-					action="#{signInSignUpBBean.logar()}" iconAwesome="sign-in"/>
-			</div>
-		</h:form>
-	</b:navBar>
-	<b:container fluid="true" style="margin-top:100">
+		<b:panel rendered="false">
+			<b:navBar />
+			<b:navbarLinks />
+			<b:navLink />
+			<b:navCommandLink />
+			<b:commandButton />
+			<b:button />
+			<b:row />
+			<b:dropMenu />
+			<b:jumbotron/>
+			<b:column/>
+			<b:well/>
+		</b:panel>
+		<b:container fluid="true">
+			<b:navBar brand="#{signInSignUpMBean.restaurante.razaoSocial}" fixed="top" id="navBar"
+				styleClass="menu-bar" style="height:80px; padding-top:15px">
+				<b:navbarLinks>
+					<b:navCommandLink value="Home" outcome="/app/home"
+						iconAwesome="home" iconAlign="left" />
+					<b:dropMenu value="#{msg.cadastrar}" iconAwesome="database">
+						<b:navCommandLink value="#{msg.clientes}"
+							outcome="/restaurantes/cadastrar_clientes" iconAwesome="user-plus" />
+						<b:navCommandLink value="#{msg.cardapio}"
+							outcome="/produtos/p_cadastrar" iconAwesome="book" />
+					</b:dropMenu>
+					<b:dropMenu value="#{msg.listar}" iconAwesome="bars" rendered="#{signInSignUpMBean.restaurante != null}">
+						<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
+							outcome="/produtos/p_listar" />
+						<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
+							outcome="/produtos/p_listar" />
+					</b:dropMenu>
+					<b:dropMenu value="#{msg.gerenciar}" iconAwesome="cogs" rendered="#{signInSignUpMBean.restaurante != null}">
+						<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
+							outcome="/produtos/p_listar" />
+						<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
+							outcome="/produtos/p_listar" />
+					</b:dropMenu>
+				</b:navbarLinks>
+				<b:navbarLinks pull="right">
+					<b:buttonGroup>
+						<b:button value="Logar" outcome="/app/login" iconAwesome="sign-in"
+							rendered="true" />
+						<b:button value="Sair" outcome="/app/home" iconAwesome="sign-out"
+							rendered="false" />
+						<b:button value="Cadastrar" outcome="/restaurantes/r_cadastrar" iconAwesome="user"
+							look="success" />
+					</b:buttonGroup>
+				</b:navbarLinks>
+			</b:navBar>
+			<p:growl showDetail="true" showSummary="true" id="growlMsg" autoUpdate="true"/>
+		</b:container>
 		<ui:insert name="content" />
-	</b:container>
-	<b:navBar fixed="bottom">
+	<footer>
 		<p>© Company 2014</p>
-	</b:navBar>
+		<p>Rodape</p>
+	</footer>
 </h:body>
 </html>

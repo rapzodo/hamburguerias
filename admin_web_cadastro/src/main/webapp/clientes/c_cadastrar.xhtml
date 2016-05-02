@@ -15,7 +15,6 @@
 						<b:column span="4">
 							<b:panel title="Cadastro de #{msg.clientes}" collapsible="false">
 								<b:panelGrid id="inputGrid" colSpans="12">
-									<h3>Dados Pessoais</h3>
 									<b:inputText label="Nome Completo" renderLabel="true" id="nome"
 										value="#{clienteMBean.model.nome}" span="12"
 										placeholder="ex.: Fulano De Tal" required="true" />
@@ -28,44 +27,30 @@
 										</f:facet>
 										<f:validateRegex pattern="#{msg.email_regex}" />
 									</b:inputText>
+									<b:inputSecret value="#{clienteMBean.model.password}" span="12"
+										label="#{msg.senha}" renderLabel="true" required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="lock" />
+										</f:facet>
+									</b:inputSecret>
 									<b:inputText label="CPF" renderLabel="true" id="cpf" span="12"
 										value="#{clienteMBean.model.cpf}" tooltip-position="right"
 										maxlength="11"
 										validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
 										<f:validateRegex pattern="#{msg.cpf_regex}" />
 									</b:inputText>
-									<b:inputText value="#{clienteMBean.model.telefone}" span="12"
+									<b:inputSecret value="#{clienteMBean.model.telefone}" span="12"
 										label="#{msg.tel}" renderLabel="true" required="true">
 										<f:facet name="prepend">
 											<b:iconAwesome name="phone" />
 										</f:facet>
-									</b:inputText>
-									<b:inputText value="#{clienteMBean.model.celular}" span="12"
+									</b:inputSecret>
+									<b:inputSecret value="#{clienteMBean.model.celular}" span="12"
 										label="#{msg.cel}" renderLabel="true">
 										<f:facet name="prepend">
 											<b:iconAwesome name="mobile" />
 										</f:facet>
-									</b:inputText>
-									<h3>Endereço</h3>
-									<b:inputText label="Rua" renderLabel="true" id="rua"
-										value="#{clienteMBean.endereco.rua}" span="12"
-										placeholder="ex.: Av. avenida nome da avenida, numero">
-									</b:inputText>
-									<b:inputText label="Bairro" renderLabel="true" id="bairro"
-										value="#{clienteMBean.endereco.bairro}" span="12">
-									</b:inputText>
-									<b:inputText label="Cidade" renderLabel="true" id="cidade"
-										value="#{clienteMBean.endereco.cidade}" span="12">
-									</b:inputText>
-									<b:selectOneMenu label="UF" renderLabel="true"
-										value="#{clienteMBean.endereco.uf}" span="4">
-										<f:selectItem itemLabel="Selecione" itemValue="" />
-										<f:selectItems value="#{appMBean.ufList}" />
-									</b:selectOneMenu>
-									<b:inputText label="CEP" renderLabel="true" id="cep"
-										value="#{clienteMBean.endereco.cep}" span="12"
-										placeholder="ex.:99999999" maxlength="8">
-									</b:inputText>
+									</b:inputSecret>
 								</b:panelGrid>
 								<hr/>
 								<b:panelGrid colSpans="6,6">

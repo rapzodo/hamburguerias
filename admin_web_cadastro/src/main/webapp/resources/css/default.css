@@ -85,6 +85,7 @@
 }
 
 .wide-bt {
+<<<<<<< HEAD
 	width: 220px;
 }
 
@@ -120,6 +121,42 @@
 	font-size: 2em;
 	color: white;
 	text-shadow:2px 2px 1px #4682B4, 0px 0px 1px #191970;
+=======
+	width: 100%;
+	margin: 2% 2%;
+}
+
+.login-bt {
+	width: 100%;
+}
+
+.edit-bt {
+	font-size: 1.5em;
+	margin: 20 auto;
+}
+
+.transparent {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.bg {
+	background-image:
+		url(http://parkresto.com/wp-content/themes/parkrestaurant/images/11onlinereservationpark.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: 100% 100%;
+	background-color: transparent;
+}
+
+.menu-bar {
+	height: 80px;
+	padding-top: 15px;
+}
+
+.title {
+	font-size: 2em;
+>>>>>>> branch 'master' of https://github.com/rapzodo/hamburguerias
 	font: bold;
 }
 

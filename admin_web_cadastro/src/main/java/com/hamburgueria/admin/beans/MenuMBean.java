@@ -55,7 +55,6 @@ public class MenuMBean extends BaseMBean<Produto>{
 		categoriaDao = new CategoriaDao();
 		categoria = DEFAULT_TAB_CATEGORIA;
 		listarProdutoPorCategoria();
-		listarProdutoPorCategoria();
 	}
 	
 	public void cadastra(){
@@ -122,11 +121,4 @@ public class MenuMBean extends BaseMBean<Produto>{
 		this.parametros = parametros;
 	}
 
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
 }

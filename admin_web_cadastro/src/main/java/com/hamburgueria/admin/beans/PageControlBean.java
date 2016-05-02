@@ -14,7 +14,6 @@ public class PageControlBean implements Serializable{
 	private String page;
 	
 	public PageControlBean() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getPage() {

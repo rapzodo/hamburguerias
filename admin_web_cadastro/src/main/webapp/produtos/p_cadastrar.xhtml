@@ -14,6 +14,7 @@
 						</b:column>
 						<b:column span="6">
 							<b:panel title="Cadastro de #{msg.produtos}" collapsible="false">
+<<<<<<< HEAD
 								<b:panelGrid id="inputGrid" colSpans="6,6">
 									<b:column>
 										<b:selectOneMenu label="#{msg.categoria}"
@@ -52,7 +53,45 @@
 									<p:fileUpload sizeLimit="#{msg.file_size_limit}"
 										value="#{menuMBean.foto}" label="Foto" mode="simple"
 										fileUploadListener="#{menuMBean.enviaFoto}" skinSimple="true" />
+=======
+								<b:panelGrid id="inputGrid" colSpans="12">
+									<b:selectOneMenu label="#{msg.categoria}"
+										value="#{menuMBean.categoria}" required="true">
+										<f:facet name="prepend">
+											<b:iconAwesome name="bars" addon="true" />
+										</f:facet>
+										<f:selectItem itemValue="" itemLabel="Selecionar" />
+										<f:selectItems value="#{appMBean.categoria}" />
+									</b:selectOneMenu>
+									<b:inputText label="Nome" renderLabel="true" id="nome"
+										value="#{menuMBean.model.nome}" placeholder="ex.: Da Casa"
+										required="true" requiredMessage="#{msg.mandatory_field}" />
+									<b:inputText label="#{msg.preco}" renderLabel="true" id="preco"
+										value="#{menuMBean.model.preco}" tooltip-position="bottom"
+										required="true" requiredMessage="#{msg.mandatory_field}">
+										<f:facet name="prepend">
+											<h:outputText value="R$" />
+										</f:facet>
+									</b:inputText>
+									<b:inputTextarea label="#{msg.descricao}" renderLabel="true"
+										id="desc" value="#{menuMBean.model.descricao}"
+										placeholder="ex: Feito com XXg de carne de ..." />
+								</b:panelGrid>
+								<b:well style="height:auto">
+									<p:graphicImage value="/img/burgue1.jpeg" width="310"
+										height="auto" rendered="true" />
+									<b:iconAwesome name="question-circle" size="5x"
+										styleClass="center" disabled="true" rendered="false" />
+>>>>>>> branch 'master' of https://github.com/rapzodo/hamburguerias
 								</b:well>
+<<<<<<< HEAD
+=======
+								<b:well>
+									<p:fileUpload sizeLimit="#{msg.file_size_limit}"
+										value="#{menuMBean.foto}" label="Foto" mode="simple"
+										fileUploadListener="#{menuMBean.enviaFoto}" skinSimple="true" />
+								</b:well>
+>>>>>>> branch 'master' of https://github.com/rapzodo/hamburguerias
 								<hr />
 								<b:panelGrid colSpans="6,6">
 									<ui:remove>

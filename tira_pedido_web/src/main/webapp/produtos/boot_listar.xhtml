@@ -1,0 +1,74 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<b:container fluid="true" id="resultContainer"
+					styleClass="margin-top1">
+					<b:row>
+						<b:column span="2">
+						</b:column>
+						<b:column span="8" id="col">
+							<p:dataScroller var="item" value="#{tiraPedidoMBean.cardapio}" >
+								<b:well>
+									<b:panelGrid colSpans="3,9">
+										<b:thumbnail>
+											<h:graphicImage value="/img/burgue1.jpeg" />
+											<ui:remove>
+												<b:iconAwesome name="question-circle" size="5x"
+													styleClass="center-h" disabled="true" rendered="true" />
+											</ui:remove>
+										</b:thumbnail>
+										<p:outputPanel>
+											<b:row>
+												<b:column span="7">
+													<b:row>
+														<h:outputText value="#{item.nome}" style="font-size:2em" />
+													</b:row>
+													<b:row>
+														<h:outputText value="#{item.descricao}"
+															style="font-size:1em" />
+													</b:row>
+													<b:row>
+														<h:outputText value="#{item.preco}"
+															style="font-size:1.5em">
+															<f:convertNumber currencySymbol="R$" type="currency" />
+														</h:outputText>
+													</b:row>
+												</b:column>
+												<b:column span="2">
+													<b:selectOneMenu value="#{tiraPedidoMBean.quantidade}" id="quantidade" style="margin-top:5%">
+														<f:selectItem itemValue="1" itemLabel="1" />
+														<f:selectItem itemValue="2" itemLabel="2" />
+														<f:selectItem itemValue="3" itemLabel="3" />	
+													</b:selectOneMenu>
+												</b:column>
+												<b:column span="3">
+													<b:commandButton value="#{msg.add_items}" 
+														action="#{tiraPedidoMBean.addItem()}" process="quantidade"
+														iconAwesome="plus-circle" update="@form :navBar"
+														styleClass="bt-full-w" ajax="true"
+														rendered="#{tiraPedidoMBean.atendimentoBean.pedido._id != null}"
+														size="lg">
+														<f:setPropertyActionListener value="#{item}"
+															target="#{tiraPedidoMBean.item}" />
+													</b:commandButton>
+												</b:column>
+											</b:row>
+										</p:outputPanel>
+									</b:panelGrid>
+								</b:well>
+							</p:dataScroller>
+						</b:column>
+						<b:column span="2"></b:column>
+					</b:row>
+				</b:container>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

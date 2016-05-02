@@ -1,8 +1,9 @@
 package org.hambuergueria.ejb.fluxo;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Local;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 import org.hambuergueria.ejb.exception.EmptyOrderException;
 import org.hambuergueria.ejb.exception.PedidoNotOpenException;
@@ -14,7 +15,7 @@ import com.hamburgueria.mongo.entities.Produto;
 import com.hamburgueria.morphia.dao.ClienteDao;
 import com.hamburgueria.morphia.dao.PedidoDao;
 
-@Stateless
+@Stateful
 @Local
 public class AtendimentoSBean {
 
@@ -23,15 +24,14 @@ public class AtendimentoSBean {
 	private PedidoDao dao;
 	private ClienteDao clienteDao;
 	
-	public void abrirPedido(Cliente cliente, Integer mesa){
-		if(cliente != null){
-			cliente.set_id(clienteDao.saveOrUpdate(cliente));
-			pedidoBean.criarPedido(cliente);
-		}else{
-			Pedido pedido = new Pedido();
-			pedido.setNumMesa(mesa);
-			pedidoBean.setPedido(pedido);
-		}
+	@PostConstruct
+	public void init(){
+		dao = new PedidoDao();
+		clienteDao = new ClienteDao();
+	}
+	
+	public Pedido abrirPedido(Cliente cliente, Integer mesa){
+		return pedidoBean.criarPedido(cliente, mesa);
 	}
 	
 	public Boolean adicionaItem(Produto produto, Long pedidoId){

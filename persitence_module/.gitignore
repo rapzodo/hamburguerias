@@ -1,3 +1,7 @@
 /target/
+<<<<<<< HEAD
 /.settings/
 /.classpath
+=======
+/.gitignore
+>>>>>>> branch 'master' of https://github.com/rapzodo/hamburguerias

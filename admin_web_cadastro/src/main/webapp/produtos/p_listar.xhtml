@@ -13,12 +13,14 @@
 						<b:column span="2">
 						</b:column>
 						<b:column span="8">
-							<p:tabView value="#{appMBean.categoria}" var="cat" dynamic="true"
-								cache="true">
+							<p:tabView value="#{appMBean.categoria}" var="cat" >
 								<p:ajax event="tabChange" listener="#{menuMBean.mudaTab}"
-									update="@all " />
+									update="@form :navBar" />
 								<p:tab title="#{cat}" id="produtosTabs">
-									<ui:repeat var="item" value="#{menuMBean.menu}">
+									<p:dataScroller var="item" value="#{menuMBean.modelList}">
+										<f:facet name="loader">
+											<b:commandButton value="#{msg.more}" type="button" iconAwesome="plus-circle"/>
+										</f:facet>
 										<b:well>
 											<b:panelGrid colSpans="3,9" id="parentPanel">
 												<b:thumbnail>
@@ -31,9 +33,6 @@
 												<p:outputPanel>
 													<b:row>
 														<b:column span="8">
-															<b:row>
-																<p:rating></p:rating>
-															</b:row>
 															<b:row>
 																<h:outputText value="#{item.nome}" styleClass="title" />
 															</b:row>
@@ -68,7 +67,7 @@
 												</p:outputPanel>
 											</b:panelGrid>
 										</b:well>
-									</ui:repeat>
+									</p:dataScroller>
 								</p:tab>
 							</p:tabView>
 						</b:column>

@@ -15,7 +15,7 @@
 						<b:column span="4">
 							<b:panel title="Cadastro de #{msg.clientes}" collapsible="false">
 								<b:panelGrid id="inputGrid" colSpans="12">
-									<h3>Dados Pessoais</h3>
+									<h3 class="title">Dados Pessoais</h3>
 									<b:inputText label="Nome Completo" renderLabel="true" id="nome"
 										value="#{clienteMBean.model.nome}" span="12"
 										placeholder="ex.: Fulano De Tal" required="true" />
@@ -28,11 +28,10 @@
 										</f:facet>
 										<f:validateRegex pattern="#{msg.email_regex}" />
 									</b:inputText>
-									<b:inputText label="CPF" renderLabel="true" id="cpf" span="12"
+									<b:inputText label="#{msg.cpf}" renderLabel="true" id="cpf" span="12"
 										value="#{clienteMBean.model.cpf}" tooltip-position="right"
 										maxlength="11"
 										validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
-										<f:validateRegex pattern="#{msg.cpf_regex}" />
 									</b:inputText>
 									<b:inputText value="#{clienteMBean.model.telefone}" span="12"
 										label="#{msg.tel}" renderLabel="true" required="true">
@@ -46,7 +45,7 @@
 											<b:iconAwesome name="mobile" />
 										</f:facet>
 									</b:inputText>
-									<h3>Endereço</h3>
+									<h3 class="title">Endereço</h3>
 									<b:inputText label="Rua" renderLabel="true" id="rua"
 										value="#{clienteMBean.endereco.rua}" span="12"
 										placeholder="ex.: Av. avenida nome da avenida, numero">
@@ -70,7 +69,7 @@
 								<hr/>
 								<b:panelGrid colSpans="6,6">
 									<b:commandButton value="#{msg.enviar}" look="success"
-										onclick="ajax:menuMBean.cadastra()" iconAwesome="save"
+										onclick="ajax:clienteMBean.cadastraCliente()" iconAwesome="save"
 										size="lg" update="@form inputGrid growlMsg"
 										styleClass="wide-bt" />
 									<b:commandButton value="Limpar" look="danger" type="reset"

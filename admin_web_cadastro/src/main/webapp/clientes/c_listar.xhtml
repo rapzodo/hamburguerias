@@ -1,0 +1,59 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<b:container fluid="true" id="resultContainer" style="margin-top:100">
+				<h:form>
+					<b:row>
+						<b:column span="2">
+						</b:column>
+						<b:column span="8">
+							<p:dataTable var="cliente" value="#{clienteMBean.modelList}" id="resultTb">
+								<f:facet name="header">
+									<h:outputText value="#{msg.clientes}" />
+								</f:facet>
+								<p:column headerText="#{msg.nome}" sortBy="#{cliente.nome}" sortable="true">
+									<h:outputText id="nome" value="#{cliente.nome}" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.email}"
+									sortBy="#{cliente.emailId}" sortable="true">
+									<h:outputText value="#{cliente.emailId}" id="email"
+										styleClass="description" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.cpf}"
+									sortBy="#{cliente.cpf}" sortable="true">
+									<h:outputText value="#{cliente.cpf}" id="cpf"
+										styleClass="description" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.tel}">
+									<h:outputText value="#{cliente.telefone}" id="tel" />
+								</p:column>
+								<p:column headerText="#{msg.acoes}">
+									<b:buttonGroup>
+										<b:button value="#{msg.editar}"
+											outcome="/clientes/cadastrar_clientes" iconAwesome="pencil"
+											size="sm">
+											<f:param value="#{cliente._id}" name="id" />
+										</b:button>
+										<b:commandButton value="#{msg.excluir}" 
+											action="#{clienteMBean.excluir}" iconAwesome="trash"
+											update="resultTb growlMsg" ajax="true" size="sm">
+											<f:setPropertyActionListener value="#{cliente}"
+												target="#{clienteMBean.model}" />
+										</b:commandButton>
+									</b:buttonGroup>
+								</p:column>
+							</p:dataTable>
+						</b:column>
+						<b:column span="2"></b:column>
+					</b:row>
+				</h:form>
+			</b:container>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

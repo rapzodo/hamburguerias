@@ -6,9 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:composition template="/principal_template.xhtml">
 		<ui:define name="content">
-			<b:container fluid="true" style="margin-top:100">
-				<b:jumbotron>
-					<hr />
+			<b:container fluid="true" style="margin-top:5%; height:500px" styleClass="bg">
 					<b:row>
 						<b:column col-md="12">
 							<h1>#{msg.welcomeTitle}</h1>
@@ -18,9 +16,9 @@
 								to create something more unique.</p>
 						</b:column>
 					</b:row>
-				</b:jumbotron>
+			</b:container>
 				<b:row>
-					<b:column col-md="12">
+					<b:column col-md="3">
 						<b:well styleClass="transparent">
 							<h1>#{msg.welcomeTitle}</h1>
 							<p>This is a template for a simple marketing or informational
@@ -31,7 +29,6 @@
 					</b:column>
 				</b:row>
 				<hr />
-			</b:container>
 		</ui:define>
 	</ui:composition>
 </ui:fragment>

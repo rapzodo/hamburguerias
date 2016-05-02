@@ -27,10 +27,13 @@ import com.hamburgueria.morphia.dao.ProdutoDao;
 @ViewScoped
 public class MenuMBean extends BaseMBean<Produto>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8015122514879281193L;
 	private static final String DEFAULT_TAB_CATEGORIA = "BEBIDAS";
 	private static final String DESC_FIELD = "descricao";
 	private static final String CATEGORIA_FIELD = "categoria";
-	private List<Produto> menu;
 	private String categoria;
 	private UploadedFile foto;
 	private Map<String, Object> parametros;
@@ -52,6 +55,7 @@ public class MenuMBean extends BaseMBean<Produto>{
 		categoriaDao = new CategoriaDao();
 		categoria = DEFAULT_TAB_CATEGORIA;
 		listarProdutoPorCategoria();
+		listarProdutoPorCategoria();
 	}
 	
 	public void cadastra(){
@@ -62,8 +66,7 @@ public class MenuMBean extends BaseMBean<Produto>{
 	}
 	
 	@Override
-	public void excluir() {
-		super.excluir();
+	protected void getResults() {
 		listarProdutoPorCategoria();
 	}
 	
@@ -77,22 +80,22 @@ public class MenuMBean extends BaseMBean<Produto>{
 			try {
 				FileUtils.createFile(fileName, foto.getContents());
 				getModel().setImagem(fileName);
-				MessagesUtil.createMsg(FacesMessage.SEVERITY_INFO, null, ServiceConstants.SUCCESS,"Fotos enviadas com sucesso");
+				MessagesUtil.createMsg(FacesMessage.SEVERITY_INFO, "growlFoto", ServiceConstants.SUCCESS,"Fotos enviadas com sucesso");
 			} catch (IOException e) {
-				MessagesUtil.createMsg(FacesMessage.SEVERITY_ERROR, null, "IO Error", e.getMessage());
+				MessagesUtil.createMsg(FacesMessage.SEVERITY_ERROR, "growlFoto", "IO Error", e.getMessage());
 				e.printStackTrace();
 			}
 		}else
-			MessagesUtil.createMsg(FacesMessage.SEVERITY_ERROR, null, "Upload ERRO", "foto não enviada");
+			MessagesUtil.createMsg(FacesMessage.SEVERITY_ERROR, "growlFoto", "Upload ERRO", "foto não enviada");
 	}
 	
 	public void listarProdutoPorCategoria(){
 		List<Categoria> cat = categoriaDao.getModelByfield(DESC_FIELD, categoria);
-		menu = getDao().getModelByfield(CATEGORIA_FIELD, cat.get(0));
+		setModelList(getDao().getModelByfield(CATEGORIA_FIELD, cat.get(0)));
 	}
 	
 	public void listarProdutosPorFiltro(){
-		menu = getDao().getByComplexQueryAnd(parametros);
+		setModelList(getDao().getByComplexQueryAnd(parametros));
 	}
 	
 	public void mudaTab(TabChangeEvent event){
@@ -103,10 +106,6 @@ public class MenuMBean extends BaseMBean<Produto>{
 		listarProdutoPorCategoria();
 	}
 	
-	public List<Produto> getMenu() {
-		return menu;
-	}
-
 	public UploadedFile getFoto() {
 		return foto;
 	}
@@ -121,10 +120,6 @@ public class MenuMBean extends BaseMBean<Produto>{
 
 	public void setParametros(Map<String, Object> parametros) {
 		this.parametros = parametros;
-	}
-
-	public void setMenu(List<Produto> menu) {
-		this.menu = menu;
 	}
 
 	public String getCategoria() {

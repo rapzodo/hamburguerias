@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<f:loadBundle basename="resources.application" var="msg" />
+	<f:loadBundle basename="application" var="msg" />
 	<f:facet name="last">
 		<h:outputStylesheet library="css" name="default.css" />
 		<h:outputScript library="js" name="locale-primefaces.js" />
@@ -42,21 +42,23 @@
 						iconAwesome="home" iconAlign="left" />
 					<b:dropMenu value="#{msg.cadastrar}" iconAwesome="database">
 						<b:navCommandLink value="#{msg.clientes}"
-							outcome="/restaurantes/cadastrar_clientes" iconAwesome="user-plus" />
+							outcome="/clientes/cadastrar_clientes" iconAwesome="user-plus" />
 						<b:navCommandLink value="#{msg.cardapio}"
 							outcome="/produtos/p_cadastrar" iconAwesome="book" />
 					</b:dropMenu>
-					<b:dropMenu value="#{msg.listar}" iconAwesome="bars" rendered="#{signInSignUpMBean.restaurante != null}">
+					<b:dropMenu value="#{msg.listar}" iconAwesome="bars" >
+						<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
+							outcome="/produtos/p_listar" />
+						<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
+							outcome="/clientes/c_listar" />
+					</b:dropMenu>
+					<b:dropMenu value="#{msg.gerenciar}" iconAwesome="cogs">
 						<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
 							outcome="/produtos/p_listar" />
 						<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
 							outcome="/produtos/p_listar" />
 					</b:dropMenu>
-					<b:dropMenu value="#{msg.gerenciar}" iconAwesome="cogs" rendered="#{signInSignUpMBean.restaurante != null}">
-						<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
-							outcome="/produtos/p_listar" />
-						<b:navCommandLink value="#{msg.clientes}" iconAwesome="users"
-							outcome="/produtos/p_listar" />
+					<b:dropMenu value="#{msg.reports}" iconAwesome="list-alt">
 					</b:dropMenu>
 				</b:navbarLinks>
 				<b:navbarLinks pull="right">
@@ -70,9 +72,10 @@
 					</b:buttonGroup>
 				</b:navbarLinks>
 			</b:navBar>
+			<p:growl showDetail="true" showSummary="true" widgetVar="growlFoto"/>
 			<p:growl showDetail="true" showSummary="true" id="growlMsg"/>
 		</b:container>
-		<ui:insert name="content" />
+		<ui:insert name="content"/>
 	<footer>
 		<p>© Company 2014</p>
 		<p>Rodape</p>

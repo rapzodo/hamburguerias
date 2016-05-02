@@ -1,7 +1,6 @@
 package com.hamburgueria.admin.beans;
 
-import java.util.List;
-
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -13,14 +12,22 @@ import com.hamburgueria.morphia.dao.ClienteDao;
 @ViewScoped
 public class ClienteMBean extends BaseMBean<Cliente>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -669373584118048179L;
 	private Endereco endereco;
-	private List<Cliente> clientes;
 	private ClienteDao cDao;
-	
 	
 	public ClienteMBean(){
 		super(new ClienteDao(), new Cliente());
 		endereco = new Endereco();
+	}
+	
+	@PostConstruct
+	public void inicializar() {
+		super.inicializar();
+		getResults();
 	}
 	
 	public void cadastraCliente(){
@@ -28,12 +35,6 @@ public class ClienteMBean extends BaseMBean<Cliente>{
 		inserir();
 	}
 	
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
 	public ClienteDao getcDao() {
 		return cDao;
 	}

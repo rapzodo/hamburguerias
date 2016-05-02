@@ -118,6 +118,8 @@
 
 .title {
 	font-size: 2em;
+	color: white;
+	text-shadow:2px 2px 1px #4682B4, 0px 0px 1px #191970;
 	font: bold;
 }
 

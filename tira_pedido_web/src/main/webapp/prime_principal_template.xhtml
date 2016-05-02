@@ -46,22 +46,24 @@
 
 	<b:navBar brand="EMPRESA" fixed="top" inverse="true" id="navBar"
 		style="height:80px; padding-top:15px" rendered="#{!appMBean.admin}">
+		<h:form>
 			<b:navbarLinks>
-				<b:navCommandLink value="Home" outcome="/app/boot_home"
+				<b:navCommandLink value="Home" outcome="/app/home"
 					iconAwesome="home" iconAlign="left" />
 				<b:navCommandLink value="#{msg.pedidos}"
-					outcome="/clientes/boot_cadastrar" iconAwesome="bars" />
+					outcome="/clientes/c_cadastrar" iconAwesome="bars" />
 				<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
-					outcome="/produtos/boot_listar" />
+					outcome="/produtos/p_listar" />
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
-				<b:navLink value=" #{tiraPedidoMBean.totalItems}" disabled="true" id="cart">
+				<b:navLink value=" #{tiraPedidoMBean.totalItems}" disabled="true">
 					<b:iconAwesome name="shopping-cart" size="3x" />
 					<h:outputText value="#{tiraPedidoMBean.atendimentoBean.pedido.valorTotal}">
 						<f:convertNumber type="currency" currencySymbol="R$"/>
 					</h:outputText>	
 				</b:navLink>
 			</b:navbarLinks>
+		</h:form>
 	</b:navBar>
 	<b:container id="infoContainer">
 		<b:row styleClass="margin-top10" id="row1">

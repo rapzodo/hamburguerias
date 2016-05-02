@@ -14,7 +14,7 @@
 						<b:column span="2">
 						</b:column>
 						<b:column span="8" id="col">
-							<p:dataScroller var="item" value="#{tiraPedidoMBean.cardapio}">
+							<p:dataScroller var="item" value="#{tiraPedidoMBean.cardapio}" >
 								<b:well>
 									<b:panelGrid colSpans="3,9">
 										<b:thumbnail>
@@ -42,16 +42,17 @@
 													</b:row>
 												</b:column>
 												<b:column span="2">
-													<b:selectOneMenu value="#{tiraPedidoMBean.quantidade}">
-														<f:selectItem itemValue="1" itemLabel="1"/>
-														<f:selectItem itemValue="2" itemLabel="2"/>
-														<f:selectItem itemValue="3" itemLabel="3"/>
+													<b:selectOneMenu value="#{tiraPedidoMBean.quantidade}" id="quantidade" style="margin-top:5%">
+														<f:selectItem itemValue="1" itemLabel="1" />
+														<f:selectItem itemValue="2" itemLabel="2" />
+														<f:selectItem itemValue="3" itemLabel="3" />	
 													</b:selectOneMenu>
 												</b:column>
 												<b:column span="3">
-													<b:commandButton value="#{msg.add_items}" action="#{tiraPedidoMBean.addItem()}"
+													<b:commandButton value="#{msg.add_items}" 
+														action="#{tiraPedidoMBean.addItem()}" process="quantidade"
 														iconAwesome="plus-circle" update="@form :navBar"
-														styleClass="bt-full-w"
+														styleClass="bt-full-w" ajax="true"
 														rendered="#{tiraPedidoMBean.atendimentoBean.pedido._id != null}"
 														size="lg">
 														<f:setPropertyActionListener value="#{item}"

@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 
 import org.hambuergueria.ejb.exception.EmptyOrderException;
@@ -53,7 +54,7 @@ public class TiraPedidoMBean implements Serializable{
 	
 	public void addItem(){
 		try{
-			for (int i = 0; i < quantidade; i++) {
+			for (int i = 0; i < quantidade ; i++) {
 				atendimentoBean.adicionaProdutos(item);
 			}
 			atendimentoBean.calculaValorTotal(0.0);
@@ -86,7 +87,7 @@ public class TiraPedidoMBean implements Serializable{
 	}
 	
 	public void fechaPedido(){
-//		atendimentoBean.calculaValorTotal(0.0);
+		atendimentoBean.calculaValorTotal(0.0);
 		Pedido pedido = atendimentoBean.getPedido();
 		pedido.setFechado(true);
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);

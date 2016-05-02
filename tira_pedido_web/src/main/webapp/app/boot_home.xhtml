@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition template="/principal_template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<b:container styleClass="margin-top1" fluid="true">
+					<b:jumbotron>
+						<b:messages id="msgs"></b:messages>
+						<b:panelGrid colSpans="4,4,4">
+							<b:column></b:column>
+							<b:commandButton value="#{msg.create_order}" ajax="true"
+							rendered="#{tiraPedidoMBean.atendimentoBean.pedido._id == null}"
+								styleClass="bt-full-lg" update="@form msgs modal :navBar :row1" 
+								iconAwesome="sticky-note" look="primary"
+								onclick="$('.ummodal').show();return false;">
+							</b:commandButton>
+							<b:column></b:column>
+							<b:column></b:column>
+							<b:button value="#{msg.add_items}" ajax="true" look="success"
+								rendered="#{tiraPedidoMBean.atendimentoBean.pedido._id != null}"
+								outcome="/produtos/boot_listar" styleClass="bt-full-lg"
+								iconAwesome="beer">
+							</b:button>
+							<b:column></b:column>
+							<b:column></b:column>
+							<b:commandButton value="#{msg.close_order}" ajax="true" action="#{tiraPedidoMBean.fechaPedido()}"
+								rendered="#{tiraPedidoMBean.atendimentoBean.pedido._id != null}"
+								styleClass="bt-full-lg" update="@form msgs :navBar :row1" 
+								iconAwesome="sticky-note-o" look="primary">
+							</b:commandButton>
+							<b:column></b:column>
+						</b:panelGrid>
+						<hr />
+					</b:jumbotron>
+					<b:modal id="modal" title="Pedido" styleClass="ummodal" size="modal-sm">
+						<b:panelGrid colSpans="12" >
+							<b:inputText value="#{tiraPedidoMBean.mesa}" required="true"
+								label="#{msg.table_number}" renderLabel="true" span="12" />
+							<b:inputText value="#{tiraPedidoMBean.cliente.emailId}"
+								label="#{msg.email}" renderLabel="true" span="12" />
+							<b:panelGrid colSpans="12">
+								<b:commandButton value="#{msg.create_order}" styleClass="bt-full-w" look="success"
+									action="#{tiraPedidoMBean.abrePedido()}" ajax="true" update="@form modal"
+									oncomplete="$('.ummodal').modal('close');return false;"></b:commandButton>
+								<b:commandButton value="#{msg.close}" styleClass="bt-full-w" look="danger"
+									update="@form modal" oncomplete="return false;"></b:commandButton>
+							</b:panelGrid>
+						</b:panelGrid>
+					</b:modal>
+				</b:container>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

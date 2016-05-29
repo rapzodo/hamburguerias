@@ -30,13 +30,15 @@ public class MorphiaDS {
 	
 	public static MorphiaDS getinstance(EnvConfig config, Boolean isSSLClient){
 		MongoClient client;
-		if(isSSLClient){
-			client = getSSLClient(config);
-		}else{
-			client = getSimpleClient(config);
-		}
 		if(instance == null){
-			instance = new MorphiaDS(client);
+			if(isSSLClient){
+				client = getSSLClient(config);
+			}else{
+				client = getSimpleClient(config);
+			}
+			synchronized(MorphiaDS.class){
+				instance = new MorphiaDS(client);
+			}
 		}
 		return instance;
 	}
@@ -44,7 +46,11 @@ public class MorphiaDS {
 		return ds;
 	}
 	private static MongoClient getSimpleClient(EnvConfig environment){
-		return new MongoClient(new ServerAddress(environment.getServer(), environment.getPort()));
+		Builder builder = MongoClientOptions.builder();
+		builder.connectTimeout(DBConstants.TIME_OUT)
+		.socketTimeout(DBConstants.TIME_OUT)
+		.serverSelectionTimeout(DBConstants.TIME_OUT);
+		return new MongoClient(new ServerAddress(environment.getServer(), environment.getPort()), builder.build());
 	}
 	
 	private static MongoClient getSSLClient(EnvConfig environment){

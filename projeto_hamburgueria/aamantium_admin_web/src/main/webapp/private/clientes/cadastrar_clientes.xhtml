@@ -1,0 +1,158 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<div class="Container100">
+					<div class="Wid90 MarAuto">
+						<div class="Card Wid30 DispBlock MarAuto WidAutoOnMobile">
+							<div class="CardTopic">
+								<i class="fa fa-user Fs30 Fleft MarRight10"></i> #{msg.clientes}
+								<br /> <span class="CardSubTopic">#{msg.subtopic}
+									#{msg.clientes}</span>
+							</div>
+							<div class="separator"></div>
+							<div class="EmptyBox10"></div>
+							<p:wizard widgetVar="cliWizard" nextLabel="#{msg.next}"
+								styleClass="Wid100" backLabel="#{msg.back}"
+								flowListener="#{clienteMBean.onFlowProcess}" showNavBar="false">
+								<!-- 							DADOS PESSOAIS -->
+								<p:tab id="dados" title="#{msg.dados}">
+									<div class="Wid80 Card SoftGrayBack">
+										<p:panelGrid columns="1" layout="grid"
+											styleClass="ui-panelgrid-blank">
+											<h:outputLabel value="#{msg.nome}" for="nome" />
+											<p:inputText id="nome" value="#{clienteMBean.model.nome}"
+												placeholder="ex.: Fulano De Tal" required="true"
+												styleClass="Wid90" />
+											<h:outputLabel value="#{msg.email}" for="email" />
+											<p:inputText id="email" value="#{clienteMBean.model.emailId}"
+												styleClass="Wid90" placeholder="ex.: usuario@email.com"
+												required="true"
+												validatorMessage="Valores fora do Padrão! usuario@email.com">
+												<f:validateRegex pattern="#{msg.email_regex}" />
+											</p:inputText>
+											<h:outputLabel value="#{msg.cpf}" for="cpf" />
+											<p:inputMask mask="999.999.999-99" id="cpf"
+												value="#{clienteMBean.model.cpf}" maxlength="11"
+												styleClass="Wid90"
+												validatorMessage="Valores fora do Padrão! xxxxxxxxxxx">
+											</p:inputMask>
+											<h:outputLabel value="#{msg.tel}" for="tel" />
+											<p:inputMask value="#{clienteMBean.model.telefone}" id="tel"
+												styleClass="Wid90" required="true" mask="(99)9999-9999">
+											</p:inputMask>
+											<h:outputLabel value="#{msg.cel}" for="cel" />
+											<p:inputMask value="#{clienteMBean.model.celular}" id="cel"
+												mask="(99)99999-9999" styleClass="Wid90" />
+										</p:panelGrid>
+									</div>
+								</p:tab>
+								<!-- 								ENDERECO -->
+								<p:tab id="endereco" title="#{msg.endereco}">
+									<div class="Wid80 Card SoftGrayBack">
+										<p:panelGrid columns="1" layout="grid"
+											styleClass="ui-panelgrid-blank">
+											<p:outputLabel value="#{msg.rua}" for="rua" />
+											<p:inputText id="rua" value="#{clienteMBean.endereco.rua}"
+												styleClass="Wid90">
+											</p:inputText>
+											<p:outputLabel value="#{msg.bairro}" for="bairro" />
+											<p:inputText id="bairro" styleClass="Wid90"
+												value="#{clienteMBean.endereco.bairro}">
+											</p:inputText>
+											<p:outputLabel value="#{msg.cidade}" for="cidade" />
+											<p:inputText id="cidade" styleClass="Wid90"
+												value="#{clienteMBean.endereco.cidade}">
+											</p:inputText>
+											<p:outputLabel value="#{msg.uf}" for="uf" />
+											<p:selectOneMenu id="uf" value="#{clienteMBean.endereco.uf}"
+												styleClass="Wid50">
+												<f:selectItem itemLabel="UF" itemValue="" />
+												<f:selectItems value="#{appMBean.ufList}" />
+											</p:selectOneMenu>
+											<p:outputLabel value="#{msg.cep}" for="cep" />
+											<p:inputMask id="cep" value="#{clienteMBean.endereco.cep}"
+												mask="99999-999" styleClass="Wid90" maxlength="8">
+											</p:inputMask>
+										</p:panelGrid>
+									</div>
+								</p:tab>
+								<!-- 								CONFIRMATION -->
+								<p:tab id="confirma" title="#{msg.confirmation}">
+									<div class="Wid80 Card SoftGrayBack">
+										<p:panelGrid columns="1" layout="grid"
+											style="border:0px !important; background:none;"
+											styleClass="ui-panelgrid-blank">
+											<span class="CardTopic"> #{msg.dados}</span>
+											<div class="Separator"></div>
+											<p:outputLabel styleClass="Cardtopic" value="#{msg.nome}" />
+											<h:outputText value="#{clienteMBean.model.nome}"
+												styleClass="Wid90" id="cfnome" />
+											<p:outputLabel styleClass="CardTopic" value="#{msg.email}" />
+											<h:outputText value="#{clienteMBean.model.emailId}"
+												styleClass="Wid90" />
+											<p:outputLabel styleClass="Cardtopic" value="#{msg.cpf}"
+												rendered="#{clienteMBean.model.cpf} != null" />
+											<h:outputText value="#{clienteMBean.model.cpf}"
+												rendered="#{clienteMBean.model.cpf} != null"
+												styleClass="Wid90" />
+											<p:outputLabel styleClass="Cardtopic" value="#{msg.tel}"
+												rendered="#{clienteMBean.model.telefone} != null}" />
+											<h:outputText value="#{clienteMBean.model.telefone}"
+												rendered="#{clienteMBean.model.telefone} != null"
+												styleClass="Wid90" />
+											<p:outputLabel styleClass="Cardtopic" value="#{msg.cel}"
+												rendered="#{clienteMBean.model.celular} != null}" />
+											<h:outputText value="#{clienteMBean.model.celular}"
+												rendered="#{clienteMBean.model.celular} != null"
+												styleClass="Wid90" />
+											<div class="EmptyBox10"></div>
+											<p:outputPanel rendered="#{clienteMBean.endereco} != null}">
+												<span class="CardTopic"> #{msg.endereco}</span>
+												<div class="Separator"></div>
+												<p:outputLabel styleClass="Cardtopic" value="#{msg.rua}" />
+												<h:outputText value="#{clienteMBean.endereco.rua}"
+													styleClass="Wid90">
+												</h:outputText>
+												<p:outputLabel styleClass="Cardtopic" value="#{msg.bairro}" />
+												<h:outputText styleClass="Wid90" placeholder="#{msg.bairro}"
+													value="#{clienteMBean.endereco.bairro}">
+												</h:outputText>
+												<p:outputLabel styleClass="Cardtopic" value="#{msg.cidade}" />
+												<h:outputText styleClass="Wid90"
+													value="#{clienteMBean.endereco.cidade}">
+												</h:outputText>
+												<h:outputText value="#{clienteMBean.endereco.uf}"
+													styleClass="Wid50" />
+												<h:outputText value="#{clienteMBean.endereco.cep}"
+													styleClass="Wid90" />
+											</p:outputPanel>
+										</p:panelGrid>
+										<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+											layout="grid">
+											<p:commandButton value="#{msg.confirm}"
+												oncomplete="PF('cliWizard').loadStep('dados',false)"
+												action="#{clienteMBean.cadastraCliente()}"
+												update="@form :menuform:growlMsg"
+												styleClass="CyanButton RaisedButton Wid90" />
+										</p:panelGrid>
+									</div>
+								</p:tab>
+							</p:wizard>
+							<p:commandButton onclick="PF('cliWizard').next();" update="@none"
+								icon="fa fa-arrow-right" styleClass="Fright" />
+							<p:commandButton onclick="PF('cliWizard').back();" update="@none"
+								styleClass="Fleft" icon="fa fa-arrow-left" />
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

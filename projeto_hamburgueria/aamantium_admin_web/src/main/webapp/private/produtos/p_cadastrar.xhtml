@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="subheader">
+        Page Header
+    </ui:define>
+
+	<ui:define name="content">
+
+		<h:form enctype="multipart/form-data">
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="Wid90 MarAuto">
+						<div class="Card Wid50 DispBlock MarAuto WidAutoOnMobile">
+							<div class="CardTopic">
+								<i class="fa fa-user Fs30 Fleft MarRight10"></i> #{msg.produtos}
+								<br /> <span class="CardSubTopic">Cadastro de novos
+									Produtos</span>
+							</div>
+							<div class="separator"></div>
+							<div class="EmptyBox20"></div>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+								layout="grid">
+								<h:outputLabel value="#{msg.categoria}" />
+								<p:selectOneMenu styleClass="Wid90"
+									value="#{menuMBean.categoria}" required="true">
+									<f:selectItem itemValue="" itemLabel="Selecionar" />
+									<f:selectItems value="#{appMBean.categoria}" />
+								</p:selectOneMenu>
+								<h:outputLabel value="#{msg.nome}" />
+								<p:inputText id="nome" styleClass="Wid90"
+									value="#{menuMBean.model.nome}" placeholder="ex.: Da Casa"
+									required="true" requiredMessage="#{msg.mandatory_field}" />
+								<h:outputLabel value="#{msg.preco}" />
+								<p:inputText id="preco" styleClass="Wid90"
+									value="#{menuMBean.model.preco}" placeholder="R$"
+									required="true" requiredMessage="#{msg.mandatory_field}">
+								</p:inputText>
+								<h:outputLabel value="#{msg.descricao}" />
+								<p:inputTextarea styleClass="Wid90" id="desc"
+									value="#{menuMBean.model.descricao}"
+									placeholder="ex: Feito com XXg de carne de ..." />
+							</p:panelGrid>
+							<div class="EmptyBox10"></div>
+							<p:fileUpload fileUploadListener="#{menuMBean.enviaFoto}"
+								value="#{menuMBean.foto}" label="Foto" auto="#{configMBean.autoUpload}" 
+								mode="#{configMBean.uploadMode}" skinSimple="#{configMBean.skinSimple}"
+								cancelLabel="#{msg.cancel}" update="@form :menuform:growlMsg" process="@form"/>
+							<div class="EmptyBox20"></div>
+							<p:panelGrid columns="2" layout="grid"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="#{msg.enviar}" 
+									actionListener="#{menuMBean.cadastra()}" icon="fa fa-save"
+									update="@form :menuform:growlMsg"
+									styleClass="GreenButton RaisedButton Wid80" />
+								<p:commandButton value="Limpar" type="reset" icon="fa fa-eraser"
+									styleClass="RedButton RaisedButton Wid80" />
+							</p:panelGrid>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -13,5 +13,6 @@ public class DBConstants {
 	public static final String PWD = "B41OCb1V9v";
 	public static final String MECHANISM = "SCRAM-SHA-1";
 	public static final int TIME_OUT = 60000;
+	public static final String USER_NOT_FOUND = "Usuário não encontrado";
 	public static final int PORT = 27017;
 }

@@ -40,5 +40,17 @@ public class Cliente extends UsuarioSistema{
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Cliente){
+			return ((Cliente) obj).get_id() == this.get_id();  
+		}
+		return super.equals(obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Long.valueOf(this.get_id()).hashCode();
+	}
 	
 }

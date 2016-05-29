@@ -58,7 +58,9 @@
 		<module>controle_acesso_ejb</module>
 		<module>gerencia_pedidos_ejb</module>
     <module>tira_pedido_web</module>
-  </modules>
+    <module>prime_adamantium_admin_web</module>
+    <module>aamantium_admin_web</module>
+	</modules>
 
 	<dependencies>
 		<dependency>

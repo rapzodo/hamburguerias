@@ -17,6 +17,8 @@ public class DaoFactory {
 			return new ProdutoDao();
 		} else if (userType.equals(CommonConstants.TIPO_CATEGORIA)) {
 			return new CategoriaDao();
+		} else if (userType.equals(CommonConstants.TIPO_USER)) {
+			return new UserDao();
 		}else{
 			return null;
 		}

@@ -8,8 +8,7 @@ import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.utils.IndexType;
 
-@Indexes(@Index(fields={@Field(value="location", type=IndexType.GEO2D),
-		@Field(value="dateCadastro", type=IndexType.DESC),
+@Indexes(@Index(fields={@Field(value="dateCadastro", type=IndexType.DESC),
 		@Field(value="emailId")}
 		))
 public class UsuarioSistema extends DomainSuperClass {
@@ -18,6 +17,7 @@ public class UsuarioSistema extends DomainSuperClass {
 	 * 
 	 */
 	private static final long serialVersionUID = 7917921256091335248L;
+	private String userName;
 	@Indexed(options=@IndexOptions(unique=true))
 	private String emailId;
 	private String password;
@@ -26,7 +26,6 @@ public class UsuarioSistema extends DomainSuperClass {
 	private String imagem;
 	@Embedded
 	private Endereco endereco;
-	private String[] location ;
 	
 	public String getCelular() {
 		return celular;
@@ -58,17 +57,17 @@ public class UsuarioSistema extends DomainSuperClass {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public String[] getLocation() {
-		return location;
-	}
-	public void setLocation(String[] location) {
-		this.location = location;
-	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

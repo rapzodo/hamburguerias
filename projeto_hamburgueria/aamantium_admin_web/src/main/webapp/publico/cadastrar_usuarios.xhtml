@@ -1,0 +1,110 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<div class="Container100">
+					<div class="Wid90 MarAuto">
+						<div class="Card Wid30 DispBlock MarAuto WidAutoOnMobile">
+							<div class="CardTopic">
+								<i class="fa fa-user Fs30 Fleft MarRight10"></i> #{msg.users} <br />
+								<span class="CardSubTopic">#{msg.subtopic} #{msg.users}</span>
+							</div>
+							<div class="separator"></div>
+							<div class="Card SoftGrayBack">
+								<p:panelGrid columns="1" layout="grid"
+									style="border:0px !important; background:none;"
+									styleClass="ui-panelgrid-blank">
+									<p:outputLabel value="#{msg.username}" for="username" />
+									<p:panelGrid columns="2" layout="grid"
+										styleClass="ui-panelgrid-blank"
+										columnClasses="ui-grid-col-1,ui-grid-col-11">
+										<i class="fa fa-user Fs25"></i>
+										<p:inputText id="username" styleClass="Wid90"
+											value="#{signInSignUpMBean.usuario.userName}" required="true"
+											requiredMessage="#{msg.required_message}">
+											<f:converter converterId="toUpperConverter" />
+											<p:ajax update="username" event="keyup" />
+										</p:inputText>
+									</p:panelGrid>
+									<p:outputLabel value="#{msg.email}" for="email" />
+									<p:panelGrid columns="2" layout="grid"
+										styleClass="ui-panelgrid-blank"
+										columnClasses="ui-grid-col-1,ui-grid-col-11">
+										<i class="icon-at Fs25"></i>
+										<p:inputText id="email" styleClass="Wid90"
+											value="#{signInSignUpMBean.usuario.emailId}"
+											placeholder="ex.: usuario@email.com" required="true"
+											requiredMessage="#{msg.required_message}"
+											validatorMessage="Valores fora do Padrão! usuario@email.com">
+											<f:validateRegex pattern="#{msg.email_regex}" />
+										</p:inputText>
+									</p:panelGrid>
+									<p:outputLabel value="#{msg.password}" for="pwd" />
+									<p:panelGrid columns="2" layout="grid"
+										styleClass="ui-panelgrid-blank"
+										columnClasses="ui-grid-col-1,ui-grid-col-11">
+										<i class="fa fa-lock Fs30"></i>
+										<p:password id="pwd" match="pwdcfm" styleClass="Wid90"
+											value="#{signInSignUpMBean.usuario.password}" required="true"
+											requiredMessage="#{msg.required_message}" feedback="true"
+											goodLabel="Bom" promptLabel="Insira um Senha"
+											weakLabel="Fraco" strongLabel="Forte" />
+									</p:panelGrid>
+									<p:outputLabel value="#{msg.password_confirm}" for="pwdcfm" />
+									<p:panelGrid columns="2" layout="grid"
+										styleClass="ui-panelgrid-blank"
+										columnClasses="ui-grid-col-1,ui-grid-col-11">
+										<i class="fa fa-lock Fs30"></i>
+										<p:password id="pwdcfm" required="true" styleClass="Wid90"
+											value="#{signInSignUpMBean.usuario.password}"
+											requiredMessage="#{msg.required_message}" />
+									</p:panelGrid>
+									<p:outputLabel for="perfil" value="#{msg.profile}" />
+									<p:panelGrid columns="2" layout="grid"
+										styleClass="ui-panelgrid-blank"
+										columnClasses="ui-grid-col-2,ui-grid-col-10">
+										<i class="fa fa-users Fs30"></i>
+										<p:selectOneMenu id="perfil" required="true" styleClass="Wid70"
+											requiredMessage="#{msg.required_message}"
+											value="#{signInSignUpMBean.usuario.perfil}">
+											<f:selectItem itemLabel="#{msg.select}" itemValue="" />
+											<f:selectItems value="#{appMBean.profiles}" />
+										</p:selectOneMenu>
+									</p:panelGrid>
+									<p:selectBooleanCheckbox value="#{signInSignUpMBean.remember}"
+									itemLabel="#{msg.remember_me}" />
+								</p:panelGrid>
+							</div>
+							<div class="EmptyBox10"></div>
+							<p:panelGrid columns="2" styleClass="ui-panelgrid-blank"
+								layout="grid">
+								<p:commandButton value="#{msg.enviar}" icon="fa fa-check"
+									action="#{signInSignUpMBean.signUp()}"
+									update="@form :menuform:growlMsg"
+									styleClass="CyanButton RaisedButton Wid90" />
+								<p:commandButton value="Limpar" type="reset"
+									styleClass="RaisedButton Wid90" />
+							</p:panelGrid>
+							<div class="EmptyBox10"></div>
+							<div class="SeparatorFull"></div>
+							<div class="TexAlCenter Fs15">
+								<p:row rendered="#{signInSignUpMBean.usuario._id == 0}">
+									#{msg.is_registered_msg} <p:link value="#{msg.login}"
+										outcome="/publico/login"></p:link>
+								</p:row>
+							</div>
+							<p:messages id="loginMsg" closable="true" showDetail="true"
+								showSummary="false" />
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

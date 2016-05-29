@@ -1,0 +1,129 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="content">
+			<h:form id="parentform">
+				<div class="Container100">
+					<div class="ContainerIndent">
+						<div class="Card">
+							<i class="icon-users Fs30 Gray Fleft MarRight10"></i> 
+							<h:outputText value="#{msg.clientes}" styleClass="CardTopic Fleft"/><br/>
+							<h:outputText value="Lista de #{msg.clientes}" styleClass="SubTopic Fleft"/>
+							<div class="EmptyBox5"></div>
+							<div class="Separator"></div>
+							<p:dataTable var="cliente" value="#{clienteMBean.modelList}"
+								rowHover="true" id="resultTb" widgetVar="cliTable"
+								filteredValue="#{clienteMBean.clientesFiltrados}">
+								<f:facet name="header">
+									<p:panelGrid columns="2"
+										styleClass="ui-panelgrid-blank ui-fluid WidAutoOnMobile"
+										style="margin-left:60%"
+										columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid">
+										<i class="icon-search Fs30 White Fright"></i>
+										<p:inputText id="globalFilter"
+											onkeyup="PF('cliTable').filter()" placeholder="Search here"
+											styleClass="Wid90 Fleft" />
+									</p:panelGrid>
+								</f:facet>
+								<p:column headerText="#{msg.nome}" sortBy="#{cliente.nome}"
+									filterBy="#{cliente.nome}" filterStyle="display:none"
+									sortable="true" styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{cliente.nome}" styleClass="Fs15" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.email}"
+									sortBy="#{cliente.emailId}" sortable="true"
+									filterBy="#{cliente.emailId}" filterStyle="display:none"
+									styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{cliente.emailId}" styleClass="Fs15" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.cpf}"
+									filterBy="#{cliente.cpf}" filterStyle="display:none"
+									sortBy="#{cliente.cpf}" sortable="true"
+									styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{cliente.cpf}" styleClass="Fs15" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.tel}"
+									filterBy="#{cliente.telefone}" filterStyle="display:none"
+									styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{cliente.telefone}" styleClass="Fs15" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.cel}"
+									filterBy="#{cliente.celular}" filterStyle="display:none"
+									styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{cliente.celular}" styleClass="Fs15" />
+								</p:column>
+								<p:column headerText="#{msg.acoes}"
+									styleClass="TexAlCenter Fs20">
+									<p:commandButton icon="fa fa-pencil" styleClass="RaisedButton"
+										oncomplete="PF('editClientDlg').show()"
+										update="@form :edtcliform:prdDetail">
+										<f:setPropertyActionListener value="#{cliente}"
+											target="#{clienteMBean.model}" />
+									</p:commandButton>
+									<p:commandButton icon="fa fa-bitbucket"
+										action="#{clienteMBean.excluir}"
+										styleClass="RaisedButton RedButton"
+										update="resultTb :menuform:growlMsg">
+										<p:confirm message="#{msg.delete_message}"
+											header="#{msg.delete}" />
+										<f:setPropertyActionListener value="#{cliente}"
+											target="#{clienteMBean.model}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+				</div>
+				<p:confirmDialog global="true">
+					<p:commandButton value="#{msg.confirm}" type="button"
+						icon="fa fa-check" styleClass="ui-confirmdialog-yes" />
+					<p:commandButton value="#{msg.cancel}" type="button"
+						icon="fa fa-close" styleClass="ui-confirmdialog-no RedButton" />
+				</p:confirmDialog>
+			</h:form>
+			<p:dialog widgetVar="editClientDlg" draggable="true"
+				header="#{msg.editar}" styleClass="WidAutoOnMobile"
+				fitViewport="true" width="25%" closeOnEscape="true" modal="true"
+				responsive="true" resizable="false">
+				<div class="Container100 DispBlock MarAuto WidAutoOnMobile">
+					<div class="ContainerIndend">
+						<h:form id="edtcliform">
+							<p:panelGrid id="prdDetail" columns="1"
+								styleClass="ui-panelgrid-blank Wid100" layout="grid">
+								<h:outputLabel value="#{msg.nome}" for="nome"
+									styleClass="CardTopic Fs15 " />
+								<p:inputText value="#{clienteMBean.model.nome}" id="nome"
+									styleClass="Wid100" />
+								<h:outputLabel value="#{msg.email}" for="email"
+									styleClass="CardTopic Fs15" />
+								<p:inputText value="#{clienteMBean.model.emailId}" id="email"
+									styleClass="Wid100" />
+								<h:outputLabel value="#{msg.cpf}" for="cpf"
+									styleClass="CardTopic Fs15" />
+								<p:inputMask mask="999.999.999-99" id="cpf"
+									value="#{clienteMBean.model.cpf}" styleClass="Wid100" />
+								<h:outputLabel value="#{msg.tel}" for="tel"
+									styleClass="CardTopic Fs15" />
+								<p:inputMask mask="(99)9999-9999" styleClass="Wid100"
+									value="#{clienteMBean.model.telefone}" />
+								<h:outputLabel value="#{msg.cel}" for="cel"
+									styleClass="CardTopic Fs15" />
+								<p:inputMask mask="(99)99999-9999" id="cel"
+									value="#{clienteMBean.model.celular}" styleClass="Wid100" />
+								<p:commandButton action="#{clienteMBean.cadastraCliente()}"
+									value="#{msg.confirm}" update=":parentform:resultTb"
+									styleClass="RaisedButton GreenButton Wid100"
+									oncomplete="PF('editClientDlg').hide()" icon="fa fa-check" />
+							</p:panelGrid>
+						</h:form>
+					</div>
+				</div>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

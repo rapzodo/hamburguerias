@@ -1,0 +1,110 @@
+<!DOCTYPE XHTML>
+
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="content">
+			<h:form id="parentform">
+				<div class="Container100">
+					<div class="ContainerIndent">
+						<div class="Card Wid60 MarAuto">
+							<i class="icon-clipboard2 Fs40 Gray Fleft MarRight10"></i> 
+							<h:outputText value="#{msg.orders}" styleClass="CardTopic Fleft"/><br/>
+							<h:outputText value="Lista de #{msg.orders}" styleClass="SubTopic Fleft"/>
+							<div class="EmptyBox5"></div>
+							<div class="SeparatorFull"></div>
+							<p:dataTable var="pedido" value="#{pedidosMBean.modelList}"
+								paginator="true" rows="10" rowsPerPageTemplate="10,30,50"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+								{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}
+								 {RowsPerPageDropdown}"
+								rowHover="true" id="resultTb" widgetVar="cliTable"
+								emptyMessage="#{msg.empty_list}"
+								filteredValue="#{pedidosMBean.pedidosFiltrados}">
+								<f:facet name="header">
+									<p:panelGrid columns="2"
+										styleClass="ui-panelgrid-blank ui-fluid WidAutoOnMobile"
+										style="margin-left:60%"
+										columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid">
+										<i class="icon-search Fs30 White Fright"></i>
+										<p:inputText id="globalFilter"
+											onkeyup="PF('cliTable').filter()" placeholder="#{msg.search}"
+											styleClass="Wid90 Fleft" />
+									</p:panelGrid>
+								</f:facet>
+								<p:column headerText="#{msg.id}" sortBy="#{pedido._id}"
+									filterBy="#{pedido._id}" filterStyle="display:none"
+									sortable="true" styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{pedido._id}" styleClass="Fs15" />
+								</p:column>
+								<p:column style="padding:5 5" headerText="#{msg.mesa}"
+									sortBy="#{pedido.numMesa}" sortable="true"
+									filterBy="#{pedido.numMesa}" filterStyle="display:none"
+									styleClass="TexAlCenter Fs20">
+									<h:outputText value="#{pedido.numMesa}" styleClass="Fs15" />
+								</p:column>
+								<p:column headerText="#{msg.details}"
+									styleClass="TexAlCenter Fs20">
+									<p:commandButton icon="fa fa-eye" styleClass="RaisedButton GrayButton"
+										oncomplete="PF('detailsDlg').show()"
+										update="@form :detailform:pedidoDetail">
+										<f:setPropertyActionListener value="#{pedido}"
+											target="#{pedidosMBean.model}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+				</div>
+			</h:form>
+			<p:dialog widgetVar="detailsDlg" draggable="true"
+				header="#{msg.details}" styleClass="WidAutoOnMobile"
+				fitViewport="true" width="25%" closeOnEscape="true" modal="true"
+				responsive="true" resizable="false">
+				<div class="Container100 DispBlock MarAuto WidAutoOnMobile">
+					<div class="ContainerIndend">
+						<h:form id="detailform">
+							<p:panelGrid id="pedidoDetail" columns="1"
+								styleClass="ui-panelgrid-blank Wid100" layout="grid">
+								<p:outputLabel value="#{msg.id}" for="id"
+									styleClass="CardTopic Fs15 " />
+								<h:outputText value="#{pedidosMBean.model._id}" id="id"
+									styleClass="Wid100" />
+								<p:outputLabel value="#{msg.mesa}" for="mesa"
+									styleClass="CardTopic Fs15" />
+								<h:outputText value="#{pedidosMBean.model.numMesa}" id="mesa"
+									styleClass="Wid100" />
+								<p:dataList value="#{pedidosMBean.model.items}" var="item"
+									paginator="true" rows="3" styleClass="paginated"
+									type="unordered" itemType="none">
+									<f:facet name="header">
+										<i class="fa fa-bars Fs20"></i>
+										<h:outputText value=" #{msg.items}"/>
+									</f:facet>
+									<p:panelGrid columns="2"
+										columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+										styleClass="ui-panelgrid-blank">
+										<h:outputText value="#{item.nome}" />
+										<h:outputText value="#{item.preco}">
+											<f:convertNumber type="currency" currencySymbol="R$" maxFractionDigits="2"/>
+										</h:outputText>
+									</p:panelGrid>
+									<f:facet name="footer">
+										<p:outputLabel for="total" value="#{msg.total_value} :"/> 
+										<h:outputText value="#{pedidosMBean.model.valorTotal}" id="total"
+											styleClass="Wid100 Orange">
+												<f:convertNumber type="currency" currencySymbol="R$" maxFractionDigits="2"/>
+											</h:outputText>
+									</f:facet>
+								</p:dataList>
+							</p:panelGrid>
+						</h:form>
+					</div>
+				</div>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="Container100">
+			<div class="Wid90 MarAuto">
+				<div class="Wid30 DispBlock MarAuto WidAutoOnMobile">
+					<div class="Card TexAlCenter">
+						<h:graphicImage name="empadaoecia.JPG" library="img"
+							style="max-width:180px;" />
+						<div class="SeparatorFull"></div>
+						<div class="EmptyBox20"></div>
+						<div class="Card SoftGrayBack">
+							<h:form>
+								<p:inputText placeholder="Email"
+									value="#{signInSignUpMBean.email}"
+									styleClass="Wid90 TexAlCenter" />
+								<div class="EmptyBox10"></div>
+								<p:inputText type="password" placeholder="Password"
+									value="#{signInSignUpMBean.senha}"
+									styleClass="Wid90 TexAlCenter" />
+								<div class="EmptyBox30"></div>
+								<p:selectBooleanCheckbox value="#{signInSignUpMBean.remember}"
+									itemLabel="#{msg.remember_me}" />
+								<div class="EmptyBox10"></div>
+								<p:messages id="loginMsg" showDetail="true" showSummary="false"/>
+								<p:commandButton value="#{msg.login}" icon="fa fa-sign-in" update="@form loginMsg"
+									action="#{signInSignUpMBean.logar}" styleClass="CyanButton" />
+								<div class="EmptyBox20 ShowOnMobile"></div>
+								<p:button value="#{msg.cadastrar}"
+									outcome="/publico/cadastrar_usuarios" />
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="EmptyBox10"></div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="subheader">
+        Page Header
+    </ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<div class="Container100 MarAuto">
+				<div class="ContainerIndent">
+					<div class="Card Wid50 DispBlock MarAuto WidAutoOnMobile">
+						<div class="Fright">
+							<p:commandButton id="dialog2" icon="fa fa-plus" type="button"
+								onclick="PF('confiDlg').show()" style="max-width:150px;" />
+						</div>
+						<i class="fa fa-cogs Fleft Fs30 Blue MarRight10"></i>
+						<span class="CardTopic">#{msg.configuracoes}</span>
+						<div class="EmptyBox20"></div>
+						<p:dataTable value="#{appMBean.configs}" var="config" editable="true">
+						<p:ajax event="rowEdit" listener="#{configMBean.onRowEdit}"/>
+							<p:column headerText="#{msg.propriedade}" styleClass="TexAlCenter Fs20">
+								<h:outputText value="#{config.configName}" />
+							</p:column>
+							<p:column headerText="#{msg.value}" styleClass="TexAlCenter Fs20">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{config.configValue}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{config.configValue}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="#{msg.editar}" styleClass="Wid20 TexAlCenter">
+								<p:rowEditor/>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+			<p:dialog header="#{msg.add}" widgetVar="confiDlg" resizable="false"
+				draggable="true" responsive="true">
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3,ui-grid-col-11">
+					<h:outputLabel for="c_name" value="#{msg.nome}:" />
+					<p:inputText id="c_name" value="#{configMBean.model.configName}" />
+
+					<h:outputLabel for="c_value" value="#{msg.value}:" />
+					<p:inputText id="c_value" value="#{configMBean.model.configValue}" />
+
+					<f:facet name="footer">
+						<p:commandButton action="#{configMBean.addConfig()}"
+							value="#{msg.enviar}" styleClass="RaisedButton Wid100"
+							icon="fa fa-save" update="@form :menuform:growlMsg" />
+					</f:facet>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,145 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="content">
+			<h:form id="parentform">
+				<div class="Container100 MarAuto ui-fluid">
+					<div class="ContainerIndent">
+						<div class="Card Wid60 DispBlock MarAuto WidAutoOnMobile">
+							<i class="icon-forkandknife Fs30 BoldGray Fleft MarRight10"></i> 
+							<h:outputText value="#{msg.cardapio}" styleClass="CardTopic Fleft"/><br/>
+							<h:outputText value="Lista de #{msg.produtos}" styleClass="SubTopic Fleft"/>
+							<div class="EmptyBox5"></div>
+							<div class="Separator"></div>
+							<div class="Fright">
+								<p:commandButton oncomplete="PF('newPrd').show()" id="addBt"
+									icon="fa fa-plus" styleClass="RaisedButton CyanButton"
+									actionListener="#{menuMBean.limpar()}"
+									update=":dialogform">
+								</p:commandButton>
+							</div>
+							<div class="EmptyBox20"></div>
+							<p:tabView value="#{appMBean.categoria}" var="cat"
+								orientation="#{configMBean.tabOrientation}" 
+								styleClass="ui-fluid WidAutoOnMobile" >
+								<p:ajax event="tabChange" listener="#{menuMBean.mudaTab}"
+									update="@form" />
+								<p:tab title="#{cat}" id="produtosTabs"
+									titleStyleClass="ui-fluid WidAutoOnMobile" >
+									<p:dataScroller var="item" value="#{menuMBean.modelList}"
+										chunkSize="#{configMBean.chunkSize}">
+										<f:facet name="loader">
+											<p:commandButton styleClass="RaisedButton" 
+												icon="fa fa-plus-square" />
+										</f:facet>
+										<div class="EmptyBox10"></div>
+										<p:panelGrid columns="3" styleClass="ui-panelgrid-blank"
+											layout="grid"
+											columnClasses="ui-grid-col-3,ui-grid-col-7, ui-grid-col-2">
+											<p:panel styleClass="ui-panelgrid-blank TexAlCenter"
+												rendered="#{item.imagem != null}">
+												<p:graphicImage value="#{configMBean.imagePath}#{item.imagem}"
+													width="auto" height="80" />
+											</p:panel>
+											<p:panel
+												styleClass="ui-panelgrid-blank TexAlCenter SoftGrayBack"
+												rendered="#{item.imagem == null}">
+												<i class="fa fa-camera-retro Fs50" />
+											</p:panel>
+											<p:panelGrid styleClass="ui-panelgrid-blank" layout="grid"
+												columns="1">
+												<h:outputText value="#{item.nome}" styleClass="CardTopic" />
+												<h:outputText value="#{item.preco}" styleClass="Fs20">
+													<f:convertNumber currencySymbol="R$" type="currency" />
+												</h:outputText>
+												<h:outputText value="#{item.descricao}" styleClass="Fs12"
+												rendered="#{item.descricao != null}" />
+											</p:panelGrid>
+											<p:panelGrid columns="2" styleClass="ui-panelgrid-blank" 
+											layout="grid" columnClasses="ui-grid-col-6,ui-grid-col-6">
+												<p:commandButton icon="fa fa-pencil"
+													styleClass="RaisedButton" oncomplete="PF('newPrd').show()"
+													update=":dialogform">
+													<f:setPropertyActionListener value="#{item}"
+														target="#{menuMBean.model}" />
+												</p:commandButton>
+												<p:commandButton icon="fa fa-trash"
+													action="#{menuMBean.excluir}"
+													styleClass="RaisedButton RedButton"
+													update="@form :menuform:growlMsg">
+													<p:confirm header="#{msg.delete}"
+														message="#{msg.delete_message}" />
+													<f:setPropertyActionListener value="#{item}"
+														target="#{menuMBean.model}" />
+												</p:commandButton>
+											</p:panelGrid>
+										</p:panelGrid>
+									</p:dataScroller>
+								</p:tab>
+							</p:tabView>
+						</div>
+					</div>
+				</div>
+				<p:confirmDialog global="true">
+					<p:commandButton value="#{msg.confirm}" type="button"
+						icon="fa fa-check" styleClass="ui-confirmdialog-yes" />
+					<p:commandButton value="#{msg.cancel}" type="button"
+						icon="fa fa-close" styleClass="ui-confirmdialog-no" />
+				</p:confirmDialog>
+			</h:form>
+			<p:dialog widgetVar="newPrd" header="#{msg.add}/#{msg.edit}" fitViewport="true" responsive="true"
+				draggable="true" width="30%" styleClass="WidAutoOnMobile" modal="true" closeOnEscape="true">
+				<div class="Container100 DispBlock MarAuto WidAutoOnMobile">
+					<div class="ContainerIndend">
+						<h:form id="dialogform">
+							<p:panelGrid id="prdDetail" columns="1"
+								styleClass="ui-panelgrid-blank MarAuto" layout="grid">
+								<h:outputLabel value="#{msg.categoria}" />
+								<p:selectOneMenu value="#{menuMBean.categoria}" required="true">
+									<f:selectItem itemValue="" itemLabel="Selecionar" />
+									<f:selectItems value="#{appMBean.categoria}" />
+								</p:selectOneMenu>
+								<h:outputLabel value="#{msg.nome}" />
+								<p:inputText id="nome" styleClass="Wid90"
+									value="#{menuMBean.model.nome}" placeholder="ex.: Da Casa"
+									required="true" requiredMessage="#{msg.mandatory_field}" >
+									<f:converter converterId="toUpperConverter"/>
+								</p:inputText>
+								<h:outputLabel value="#{msg.preco}" />
+								<p:inputText id="preco" styleClass="Wid90"
+									value="#{menuMBean.model.preco}" placeholder="R$"
+									required="true" requiredMessage="#{msg.mandatory_field}">
+								</p:inputText>
+								<h:outputLabel value="#{msg.descricao}" />
+								<p:inputTextarea styleClass="Wid90" id="desc"
+									value="#{menuMBean.model.descricao}"
+									placeholder="ex: Feito com XXg de carne de ..." />
+							</p:panelGrid>
+							<div class="EmptyBox10"></div>
+							<p:messages id="growlFoto" />
+							<p:fileUpload fileUploadListener="#{menuMBean.enviaFoto}"
+								value="#{menuMBean.foto}" label="Foto" auto="true"
+								update="growlFoto" mode="#{configMBean.uploadMode}"
+								skinSimple="#{configMBean.skinSimple}" cancelLabel="#{msg.cancel}"  />
+							<div class="EmptyBox10"></div>
+							<div class="Separator"></div>
+							<p:panelGrid columns="1" layout="grid"
+								styleClass="ui-panelgrid-blank TexAlCenter">
+								<p:commandButton value="#{msg.enviar}"
+									action="#{menuMBean.cadastra()}" icon="fa fa-check"
+									update=":menuform:growlMsg :parentform"
+									oncomplete="PF('newPrd').hide()"
+									styleClass="GreenButton RaisedButton Wid90" />
+								<p:commandButton value="#{msg.cancel}" icon="fa fa-eraser" type="reset" rendered="#{menuMBean.model._id eq 0}"
+									styleClass="RedButton RaisedButton Wid90" update="prdDetail" />
+							</p:panelGrid>
+						</h:form>
+					</div>
+				</div>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
+</ui:fragment>

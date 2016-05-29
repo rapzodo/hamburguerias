@@ -1,0 +1,32 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/adamantium">
+
+    <div class="layout-menu-cover-top Animated05" id="layout-menu-cover">
+        <h:form id="menuform">
+    		<p:growl id="growlMsg" autoUpdate="false" widgetVar="growlMsg" 
+    		globalOnly="false" severity="error, info" showSummary="true" showDetail="true"
+    		life="#{configMBean.life}"/>
+            <pm:menu>
+				<p:menuitem id="rm_promotion" value=" Home"
+					icon="icon-home" outcome="/publico/home" />
+	                <p:menuitem id="c_produtos" icon="icon-forkandknife" value="#{msg.cardapio}" 
+	                outcome="/private/produtos/listar_produtos"/>
+                <p:menuitem id="c_estoque" icon="icon-layers" value="#{msg.stock}" 
+                	outcome="/404"/>
+                <p:menuitem id="c_pedidos" icon="icon-clipboard2" value="#{msg.orders}" 
+                	outcome="/private/pedidos/listar_pedidos"/>
+                <p:submenu icon="fa fa-users" label="#{msg.clientes}">
+	                <p:menuitem id="c_clientes" value=" #{msg.cadastrar}" icon="fa fa-user-plus" outcome="/private/clientes/cadastrar_clientes"/>
+	                <p:menuitem id="l_clientes" value=" #{msg.listar}" icon="icon-list2" outcome="/private/clientes/c_listar"/>
+                </p:submenu>
+			</pm:menu>
+        </h:form>
+
+    </div>
+
+</ui:composition>

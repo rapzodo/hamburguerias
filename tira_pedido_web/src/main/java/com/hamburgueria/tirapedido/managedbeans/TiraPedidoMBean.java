@@ -22,10 +22,9 @@ import com.hamburgueria.mongo.entities.Pedido;
 import com.hamburgueria.mongo.entities.Produto;
 import com.hamburgueria.morphia.dao.DaoFactory;
 
-
 @ManagedBean
 @SessionScoped
-public class TiraPedidoMBean implements Serializable{
+public class TiraPedidoMBean implements Serializable {
 
 	/**
 	 * 
@@ -40,57 +39,68 @@ public class TiraPedidoMBean implements Serializable{
 	private Integer quantidade;
 	private static final String ORDER_CREATED = "Pedido criado";
 	private static final String ORDER_SENT = "Pedido Enviado";
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		cliente = new Cliente();
 		item = new Produto();
 	}
-	
-	public void abrePedido(){
-		pedidoId = atendimentoBean.criarPedido(cliente, mesa).get_id();
-		MessagesUtil.createSuccessMsg(null, ServiceConstants.SUCCESS, ORDER_CREATED);
+
+	public void abrePedido() {
+		atendimentoBean.getPedidoAbertoPorMesa(mesa);
+		if (atendimentoBean.getPedido() == null) {
+			atendimentoBean.criarPedido(cliente, mesa);
+		}
+		MessagesUtil.createSuccessMsg(null, ServiceConstants.SUCCESS,
+				ORDER_CREATED);
 	}
-	
-	public void addItem(){
-		try{
-			for (int i = 0; i < quantidade ; i++) {
+
+	public void addItem() {
+		try {
+			for (int i = 0; i < quantidade; i++) {
 				atendimentoBean.adicionaProdutos(item);
 			}
 			atendimentoBean.calculaValorTotal(0.0);
 			quantidade = 0;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-			MessagesUtil.createErrMsg(null, ServiceConstants.FAIL_MESSAGE, e.getMessage());
+			MessagesUtil.createErrMsg(null, ServiceConstants.FAIL_MESSAGE,
+					e.getMessage());
 		}
 	}
-	
-	public void removeItem(){
+
+	public void removeItem() {
 		try {
 			atendimentoBean.removerProdutos(item);
 			atendimentoBean.calculaValorTotal(0.0);
 		} catch (EmptyOrderException e) {
-			MessagesUtil.createErrMsg(null, ServiceConstants.FAIL_MESSAGE, e.getMessage());
+			MessagesUtil.createErrMsg(null, ServiceConstants.FAIL_MESSAGE,
+					e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
-	public void tirarPedido(){
+
+	public void tirarPedido() {
 		try {
 			pedidoId = atendimentoBean.submeterPedido();
-			MessagesUtil.createSuccessMsg(null, ServiceConstants.SUCCESS, ORDER_CREATED + pedidoId);
+			MessagesUtil.createSuccessMsg(null, ServiceConstants.SUCCESS,
+					ORDER_CREATED + pedidoId);
 		} catch (Exception e) {
-			MessagesUtil.createErrMsg(null, ServiceConstants.FAIL_MESSAGE, e.getMessage());
+			MessagesUtil.createErrMsg(null, ServiceConstants.FAIL_MESSAGE,
+					e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public void fechaPedido(){
-		atendimentoBean.calculaValorTotal(0.0);
-		Pedido pedido = atendimentoBean.getPedido();
-		pedido.setFechado(true);
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+
+	public void fechaPedido() {
+		if (atendimentoBean.getPedido().getItems() != null) {
+			atendimentoBean.calculaValorTotal(0.0);
+			Pedido pedido = atendimentoBean.getPedido();
+			pedido.setFechado(true);
+		}
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
 		session.invalidate();
 	}
 
@@ -118,7 +128,6 @@ public class TiraPedidoMBean implements Serializable{
 		this.pedidoId = pedidoId;
 	}
 
-
 	public Integer getMesa() {
 		return mesa;
 	}
@@ -129,12 +138,13 @@ public class TiraPedidoMBean implements Serializable{
 
 	@SuppressWarnings("unchecked")
 	public List<Produto> getCardapio() {
-		return (List<Produto>) DaoFactory.getDao(CommonConstants.TIPO_PRODUTO).listAll();
+		return (List<Produto>) DaoFactory.getDao(CommonConstants.TIPO_PRODUTO)
+				.listAll();
 	}
 
-	public Integer getTotalItems(){
-		if(atendimentoBean.getPedido() != null){
-			if(atendimentoBean.getPedido().getItems() != null){
+	public Integer getTotalItems() {
+		if (atendimentoBean.getPedido() != null) {
+			if (atendimentoBean.getPedido().getItems() != null) {
 				List<Produto> items = atendimentoBean.getPedido().getItems();
 				return items.size();
 			}

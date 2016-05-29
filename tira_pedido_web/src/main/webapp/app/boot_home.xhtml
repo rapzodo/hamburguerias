@@ -36,7 +36,7 @@
 						</b:panelGrid>
 						<hr />
 					</b:jumbotron>
-					<b:modal id="modal" title="Pedido" styleClass="ummodal" size="modal-sm">
+					<b:modal id="modal" title="Pedido" styleClass="ummodal" size="modal-sm" closable="false">
 						<b:panelGrid colSpans="12" >
 							<b:inputText value="#{tiraPedidoMBean.mesa}" required="true"
 								label="#{msg.table_number}" renderLabel="true" span="12" />
@@ -45,9 +45,9 @@
 							<b:panelGrid colSpans="12">
 								<b:commandButton value="#{msg.create_order}" styleClass="bt-full-w" look="success"
 									action="#{tiraPedidoMBean.abrePedido()}" ajax="true" update="@form modal"
-									oncomplete="$('.ummodal').modal('close');return false;"></b:commandButton>
-								<b:commandButton value="#{msg.close}" styleClass="bt-full-w" look="danger"
-									update="@form modal" oncomplete="return false;"></b:commandButton>
+									oncomplete="$('.ummodal').hide();return false;"></b:commandButton>
+								<b:button value="#{msg.close}" styleClass="bt-full-w" look="danger"
+									onclick="$('.ummodal').hide();return false;" dismiss="modal"/>
 							</b:panelGrid>
 						</b:panelGrid>
 					</b:modal>

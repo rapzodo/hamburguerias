@@ -32,6 +32,10 @@
 	right: 20px;
 }
 </style>
+
+<script>
+$.blockUI.defaults.message='Aguarde...'
+</script>
 </h:head>
 
 <h:body>
@@ -44,24 +48,28 @@
 		<b:row />
 	</b:panel>
 
-	<b:navBar brand="EMPRESA" fixed="top" inverse="true" id="navBar"
-		style="height:80px; padding-top:15px" rendered="#{!appMBean.admin}">
-			<b:navbarLinks>
-				<b:navCommandLink value="Home" outcome="/app/boot_home"
-					iconAwesome="home" iconAlign="left" />
-				<b:navCommandLink value="#{msg.pedidos}"
-					outcome="/clientes/boot_cadastrar" iconAwesome="bars" />
-				<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
-					outcome="/produtos/boot_listar" />
-			</b:navbarLinks>
-			<b:navbarLinks pull="right">
-				<b:navLink value=" #{tiraPedidoMBean.totalItems}" disabled="true" id="cart">
-					<b:iconAwesome name="shopping-cart" size="3x" />
-					<h:outputText value="#{tiraPedidoMBean.atendimentoBean.pedido.valorTotal}">
-						<f:convertNumber type="currency" currencySymbol="R$"/>
-					</h:outputText>	
-				</b:navLink>
-			</b:navbarLinks>
+	<b:navBar brand="EMPRESA" fixed="top" inverse="false" id="navBar"
+		style="height:100px; padding-top:15px" rendered="#{!appMBean.admin}">
+		<b:navbarLinks>
+			<b:navCommandLink value="Home" outcome="/app/boot_home"
+				style="margin-top:10" iconAwesome="home" iconAlign="left" />
+			<b:navCommandLink value="#{msg.pedidos}" style="margin-top:10"
+				outcome="/clientes/boot_cadastrar" iconAwesome="bars" />
+			<b:navCommandLink value="#{msg.cardapio}" iconAwesome="cutlery"
+				style="margin-top:10" outcome="/produtos/boot_listar" />
+		</b:navbarLinks>
+		<b:navbarLinks pull="right">
+			<b:navLink disabled="true" id="cart" style="margin-top:0" outcome="/pedidos/cart">
+				<b:panelGrid colSpans="12" style="margin-top:0">
+					<b:badge value=" #{tiraPedidoMBean.totalItems}" />
+					<b:iconAwesome name="shopping-cart" size="2x" />
+				</b:panelGrid>
+				<h:outputText
+					value="#{tiraPedidoMBean.atendimentoBean.pedido.valorTotal}">
+					<f:convertNumber type="currency" currencySymbol="R$" />
+				</h:outputText>
+			</b:navLink>
+		</b:navbarLinks>
 	</b:navBar>
 	<b:container id="infoContainer">
 		<b:row styleClass="margin-top10" id="row1">
